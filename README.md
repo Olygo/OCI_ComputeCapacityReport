@@ -32,7 +32,7 @@ This script runs :
 You must pass a shape name as argument, the shape names are CASE SENSITIVE:
 Please [review the shape names in the documentation](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
 
-You can also pass a region name as argument if you don't want to analyze all the regions you subscribeb:
+You can also pass a region name as argument if you don't want to analyze all the regions you subscribed:
 Please [review the region identifier in the documentation](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm)
 
 ## Parameters for execution:
@@ -54,7 +54,7 @@ Default authentication uses [Instance Principals](https://docs.public.oneportal.
 	
 	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex
 
-without authentication argument ** OCI_IdleUser_Disabler** tries to authenticate using Instance Principals
+without authentication argument script tries to authenticate using Instance Principals
 
 ##### Authenticate with local_config_file:
 	
