@@ -1,84 +1,105 @@
 # OCI_ComputeCapacityReport
 
-This script will display a report of the host capacity within an availability domain that is available for you to create compute instances. 
-Host capacity is the physical infrastructure that resources such as compute instances run on.
+**version: 2.0.0**
 
-Using this script you will be able to identify which region is offering last compute shape such as VM.Standard.E5.Flex
+**Check the Availability of Any Compute Shape Across OCI Regions !**
 
-Script returns :
-- AVAILABITY = AVAILABLE => the shape is available in the region/AD/FD
-- AVAILABITY = HARDWARE_NOT_SUPPORTED => the shape has not yet been deployed in this region/AD/FD
-- AVAILABITY = OUT_OF_HOST_CAPACITY => additional shapes are being deployed in the region/AD/FD
+Easily find out which regions offer the latest compute shapes, such as VM.Standard.E5.Flex.
 
-This script runs :
+OCI_ComputeCapacityReport provides the availability status down to the Fault Domain level.
 
-- within Oracle Cloud Infrastructure (OCI) CloudShell (Recommended method)
-- on compute instance with instance_principals authentication
-- on compute instance with config_file authentication
+Output meanings are:
 
+- **AVAILABLE** => The capacity for the specified shape is currently available.
+- **HARDWARE_NOT_SUPPORTED** => The necessary hardware has not yet been deployed in this region.
+- **OUT_OF_HOST_CAPACITY** => Additional hardware is currently being deployed in this region
 
-## Table of Contents
+## Table of Contents
 
-- [Prerequisite](#Prerequisite)
-- [Parameters for execution](#Parameters-for-execution)
-- [How to use](#How-to-use)
+- [How to use OCI_ComputeCapacityReport ?](### How-to-use-OCI_ComputeCapacityReport-?)
+- [Script options](#Script-options)
+- [Optional parameters for execution](#Optional-parameters-for-execution)
+- [Examples of Usage](#Examples-of-Usage)
 - [Setup](#Setup)
 - [Screenshots](#Screenshots)
-- [Disclaimer](#disclaimer)
-- [Questions](#questions)
+- [Compute Shapes Tested and Validated](#Compute-Shapes-Tested-and-Validated-as-of-September-1,-2024)
+- [Questions and Feedbacks](#Questions-and-Feedbacks-?)
+- [Disclaimer](#Disclaimer)
+ 
+## How to use OCI_ComputeCapacityReport ?
 
-## Prerequisite:
+	python3 ./OCI_ComputeCapacityReport.py
 
-You must pass a shape name as argument, the shape names are CASE SENSITIVE:
-Please [review the shape names in the documentation](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
 
-You can also pass a region name as argument if you don't want to analyze all the regions you subscribed:
-Please [review the region identifier in the documentation](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm)
+When no arguments are provided, OCI_ComputeCapacityReport will :
 
-## Parameters for execution:
+- attempt to authenticate using all available authentication methods:
 
-Default authentication uses [Instance Principals](https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/Content/Identity/Tasks/callingservicesfrominstances.htm), meaning you can run this script from an OCI virtual machine without having to provide any details or credentials
+    1- CloudShell authentication
+    
+    2- Config_File authentication
+    
+    3- Instance_Principal authentication
 
-| Argument      | Parameter            | Description                                                          |
-| -----------   | -------------------- | -------------------------------------------------------------------- |
-| -cs           |                      | authenticate through CloudShell Delegation Token                     | 
-| -cf           |                      | authenticate through local OCI config_file                           | 
-| -cfp          | config_file          | change OCI config_file path, default: ~/.oci/config                  | 
-| -cp           | config_profile       | indicate config file section to use, default: DEFAULT                | 
-| -rg           | region_identifier    | indicate OCI region to analyze, default: all_subscribed region		  | 
-| -tcl          | target_compartmen    | indicate a specific compartment to analyze, default: ROOT            | 
-| -shape        | shape_name           | indicate the shape name you want to analyze, default: NONE           | 
+- select the tenancy Home Region
+- display [computes shapes names](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
+- prompt user to select a compute shape name
 
-## How to use
+
+## Script options:
+
+- Enforce an authentication method, e.g., -auth cs | cf | ip
+- Select a specific region, e.g., -region eu-frankfurt-1
+- Target all subscribed regions, e.g., -region all_regions
+- Specify a shape name, e.g., -shape VM.Standard.E5.Flex
+- Optionally define oCPUs and memory amount
+
+
+## Optional parameters for execution:
+
+| Argument      | Parameter            | Description                                                                                        |
+| -----------   | -------------------- | -------------------------------------------------------------------------------------------------- |
+| -auth         | auth_method          | Force an authentication method : 'cs' (cloudshell), 'cf' (config file), 'ip' (instance principals' | 
+| -config_file  | config_file_path     | Path to your OCI config file, default: ~/.oci/config                                               |
+| -profile      | config_profile       | Config file section to use, default: DEFAULT'                                                      | 
+| -region       | region_name          | Region name to analyze, e.g. "eu-frankfurt-1" or "all_regions", default is home_region             | 
+| -shape        | shape_name           | Compute shape name you want to analyze                                                             | 
+| -ocpus        | integer or float     | Specify a particular amount of oCPU                                                                | 
+| -memory       | integer or float     | Specify a particular amount of memory                                                              | 
+
+## Examples of Usage
 ##### Default :
 	
-	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex
+	python3 ./OCI_ComputeCapacityReport.py
 
-without authentication argument script tries to authenticate using Instance Principals
+try all authentication methods, analyze Home Region only and prompt user to get a compute shape name
 
-##### Authenticate with local_config_file:
+##### Authenticate using a config_file stored in a custom location:
 	
-	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex -cf
+	python3 ./OCI_ComputeCapacityReport.py -auth cf -config_file /path/to/config_file 
 
-##### Authenticate with custom local_config_file & profile:
+##### Select a subscribed region other than the Home Region:
 	
-	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex -cf -cfp /home/opc/myconfig -cp MyDomain
+	python3 ./OCI_ComputeCapacityReport.py -region eu-paris-1
 
-##### Authenticate in cloud_shell:
+##### Select all subscribed regions:
 	
-	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex -cs
-
-##### Analyze a single region:
-	
-	python3 ./OCI_ComputeCapacityReport.py -shape VM.Standard.E5.Flex -rg eu-frankfurt-1	
+	python3 ./OCI_ComputeCapacityReport.py -region all_regions	
 
 # Setup
 
-If you run this script from an OCI compute instance you should use the default authentication method: [Instance Principals](https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/Content/Identity/Tasks/callingservicesfrominstances.htm).
+##### Download script locally
 
-Using Instance Principals, you must create the following resources:
+```
+python3 -m pip install oci -U --user
+git clone https://github.com/Olygo/OCI_ComputeCapacityReport
+```
 
-##### Create a Dynamic Group
+If you run this script from an OCI compute instance you should use [Instance Principal authentication](https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/Content/Identity/Tasks/callingservicesfrominstances.htm).
+
+When using Instance Principal authentication, you need to create the following resources:
+
+##### Dynamic Group
 
 - Create a Dynamic Group called OCI_Scripting and add the OCID of your instance to the group, using :
 
@@ -86,7 +107,7 @@ Using Instance Principals, you must create the following resources:
 ANY {instance.id = 'OCID_of_your_Compute_Instance'}
 ```	
 
-##### Create a Policy
+##### Policy
 
 - Create a policy in the root compartment, giving your dynamic group the permissions to read resources in tenancy:
 
@@ -94,22 +115,50 @@ ANY {instance.id = 'OCID_of_your_Compute_Instance'}
 allow dynamic-group 'Your_Identity_Domain_Name'/'OCI_Scripting' to read all_resources in tenancy
 ```
 
-##### Download script locally
-
-```
-git clone https://github.com/Olygo/OCI_ComputeCapacityReport
-```
-
 # Screenshots
 
-##### Check where VM.Standard.E5.Flex is available :
+##### Default run, prompt user for a compute shape name :
 ![00](./.images/00.png)
 
-##### Check where BM.DenseIO.E4.128 is available :
+##### Script output :
 ![01](./.images/01.png)
 
-## Questions ?
+##### Support of Flexible DenseIO compute shapes :
+![01](./.images/02.png)
+
+##### Check shape availability with a specific amount of oCPUs and memory :
+![01](./.images/03.png)
+
+
+## Compute Shapes Tested and Validated as of September 1, 2024
+
+This list includes all the compute shapes that have been tested with this script. 
+However, it does not represent the only shapes you can use. 
+If a new compute shape is released and isn't included in this list, it should still work correctly. 
+If you encounter any issues, please let me know.
+
+| Argument            | Parameter            | Description           |                      |
+| ------------------- | -------------------- | ----------------------| -------------------- |
+| BM.DenseIO1.36      | BM.DenseIO2.52       | BM.DenseIO.E4.128     | BM.DenseIO.E5.128    |   
+| BM.GPU2.2           | BM.GPU3.8            | BM.GPU4.8             | BM.GPU.A10.4         |
+| BM.GPU.A100-v2.8.   | BM.GPU.H100.8        | BM.GPU.L40S.4         | BM.HPC2.36           |
+| BM.HPC.E5.144       | BM.Optimized3.36     | BM.Standard1.36       | BM.Standard2.52      |
+| BM.Standard3.64     | BM.Standard.A1.160   | BM.Standard.B1.44     | BM.Standard.E2.64    |
+| BM.Standard.E3.128  | BM.Standard.E4.128   | BM.Standard.E5.192    | VM.DenseIO1.16       |
+| VM.DenseIO1.4	     | VM.DenseIO1.8        | VM.DenseIO2.16        | VM.DenseIO2.24.      |
+| VM.DenseIO2.8	     | VM.DenseIO.E4.Flex   | VM.DenseIO.E5.Flex    | VM.GPU2.1            |
+| VM.GPU3.1           | VM.GPU3.2            | VM.GPU3.4             | VM.GPU.A10.1        |
+| VM.GPU.A10.2	     | VM.Optimized3.Flex.  | VM.Standard1.1        | VM.Standard1.16      |
+| VM.Standard1.2	     | VM.Standard1.4       | VM.Standard1.8        | VM.Standard2.1.      |
+| VM.Standard2.16     | VM.Standard2.2       | VM.Standard2.24       | VM.Standard2.4       |
+| VM.Standard2.8	     | VM.Standard3.Flex    | VM.Standard.A1.Flex   | VM.Standard.A2.Flex  |
+| VM.Standard.B1.1	  | VM.Standard.B1.16   | VM.Standard.B1.2.      | VM.Standard.B1.4     |
+| VM.Standard.B1.8    | VM.Standard.E2.1    | VM.Standard.E2.1.Micro | VM.Standard.E2.2     |
+| VM.Standard.E2.4	  | VM.Standard.E2.8    | VM.Standard.E3.Flex    | VM.Standard.E4.Flex  |
+| VM.Standard.E5.Flex |	
+
+## Questions and Feedbacks ?
 **_olygo.git@gmail.com_**
 
 ## Disclaimer
-**Please test properly on test resources, before using it on production resources to prevent unwanted outages or unwanted bills.**
+**Always ensure thorough testing of any script on test resources prior to deployment in a production environment to avoid potential outages or unexpected costs. The OCI_ComputeCapacityReport script does not interact with or create any resources in your existing environment.**
