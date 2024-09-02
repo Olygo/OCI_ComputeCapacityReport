@@ -1,5 +1,19 @@
 # coding: utf-8
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# name: OCI_ComputeCapacityReport.py
+#
+# Author: Florian Bonneville
+# Version: 2.0.0 - September 1st, 2024
+#
+# Disclaimer: 
+# This script is an independent tool developed by 
+# Florian Bonneville and is not affiliated with or 
+# supported by Oracle. It is provided as-is and without 
+# any warranty or official endorsement from Oracle
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 import oci
 import time
 import os.path
