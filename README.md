@@ -14,7 +14,7 @@ Output meanings are:
 - **HARDWARE_NOT_SUPPORTED** => The necessary hardware has not yet been deployed in this region.
 - **OUT_OF_HOST_CAPACITY** => Additional hardware is currently being deployed in this region
 
-## Table of Contents
+## Table of Contents
 
 - [How to use OCI_ComputeCapacityReport ?](### How-to-use-OCI_ComputeCapacityReport-?)
 - [Script options](#Script-options)
@@ -26,7 +26,7 @@ Output meanings are:
 - [Questions and Feedbacks](#Questions-and-Feedbacks-?)
 - [Disclaimer](#Disclaimer)
  
-## How to use OCI_ComputeCapacityReport ?
+## How to use OCI_ComputeCapacityReport ?
 
 	python3 ./OCI_ComputeCapacityReport.py
 
