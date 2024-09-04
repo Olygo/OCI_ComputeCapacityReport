@@ -1,10 +1,14 @@
 # coding: utf-8
 
+import re
 import oci
 from modules.utils import yellow, print_error
-from modules.identity import get_availability_domains, get_fault_domains
+from modules.identity import get_availability_domains, get_fault_domains, get_compartment_name
 
-def set_user_shape_name(home_region, config, signer, tenancy_id):
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Define target shape name to analyze 
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+def set_user_shape_name(home_region, config, signer, compartment_id):
 
     """
     Prompts the user to select a compute shape from a list of available shapes.
@@ -16,7 +20,7 @@ def set_user_shape_name(home_region, config, signer, tenancy_id):
         home_region : The home region from which we update the shape list.
         config (dict): OCI configuration dictionary
         signer (object): OCI signer used for authenticating API requests.
-        tenancy_id (str): The OCID of the tenancy.
+        compartment_id (str): The OCID of the compartment.
 
     Returns:
         The compute shape name selected by the user.
@@ -40,7 +44,7 @@ def set_user_shape_name(home_region, config, signer, tenancy_id):
     core_client = oci.core.ComputeClient(config=config, signer=signer)
     
     # Fetch and sort available shapes in the region
-    shapes_in_home_region = core_client.list_shapes(tenancy_id).data
+    shapes_in_home_region = core_client.list_shapes(compartment_id).data
 
     # Update all_shapes list if new shapes found
     for shape in shapes_in_home_region:
@@ -101,15 +105,15 @@ def set_denseio_shape_ocpus(shape_name):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Fetch shapes and availability domains
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def fetch_shapes_and_domains(core_client, identity_client, tenancy_id):
+def fetch_shapes_and_domains(core_client, identity_client, compartment_id):
 
     """
-    Fetches the availability domains and compute shapes for a given tenancy_id.
+    Fetches the availability domains and compute shapes for a given compartment_id.
 
     Args:
         core_client: An instance of the OCI ComputeClient used to list shapes.
         identity_client: An instance of the OCI IdentityClient used to retrieve availability domains.
-        tenancy_id: The OCID of the tenancy for which to retrieve the information.
+        compartment_id: The OCID of the compartment for which to retrieve the information.
 
     Returns:
         tuple: A tuple containing two elements:
@@ -117,8 +121,8 @@ def fetch_shapes_and_domains(core_client, identity_client, tenancy_id):
             - shapes_in_region (list): A list of compute shapes available in the specified tenancy's region.
     """
 
-    availability_domains = get_availability_domains(identity_client, tenancy_id)
-    shapes_in_region = core_client.list_shapes(tenancy_id).data
+    availability_domains = get_availability_domains(identity_client, compartment_id)
+    shapes_in_region = core_client.list_shapes(compartment_id).data
 
     return availability_domains, shapes_in_region
 
@@ -165,7 +169,7 @@ def get_shape_config(user_shape_name, shapes_in_region, user_shape_ocpus, user_s
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Process region by fetching data and creating report
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def process_region(region, config, signer, tenancy_id, user_shape_name, user_shape_ocpus, user_shape_memory):
+def process_region(region, config, signer, compartment_id, user_shape_name, user_shape_ocpus, user_shape_memory):
 
     """
     Processes the specified region by fetching and configuring compute shape data, 
@@ -175,7 +179,7 @@ def process_region(region, config, signer, tenancy_id, user_shape_name, user_sha
         region (object): The region to check.
         config (dict): The OCI config dictionary.
         signer (object): The OCI signer object.
-        tenancy_id (str): The OCID of the tenancy where the resources are located.
+        compartment_id (str): The OCID of the compartment where the resources are located.
         user_shape_name (str): The name of the shape to retrieve configuration details for.
         user_shape_ocpus (float): The number of OCPUs for the user-specified shape.
         user_shape_memory (float): The amount of memory in GB for the user-specified shape.
@@ -209,10 +213,11 @@ def process_region(region, config, signer, tenancy_id, user_shape_name, user_sha
         for fault_domain in fault_domains:
             create_and_print_report(
                 region.region_name,
+                identity_client,
                 core_client,
                 availability_domain,
                 fault_domain,
-                tenancy_id,
+                compartment_id,
                 user_shape_name,
                 shape_ocpus,
                 shape_memory,
@@ -222,7 +227,7 @@ def process_region(region, config, signer, tenancy_id, user_shape_name, user_sha
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Create OCI compute shape report
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def create_and_print_report(region, core_client, availability_domain, fault_domain, tenancy_id, shape_name, shape_ocpus, shape_memory, shape_is_flex):
+def create_and_print_report(region, identity_client, core_client, availability_domain, fault_domain, compartment_id, shape_name, shape_ocpus, shape_memory, shape_is_flex):
     
     """
     Creates a compute capacity report for a specific region and shape, and prints the results.
@@ -232,7 +237,7 @@ def create_and_print_report(region, core_client, availability_domain, fault_doma
         core_client: An instance of the OCI ComputeClient used to list shapes.
         availability_domain (str): The availability domain to be included in the report.
         fault_domain (str): The fault domain to be included in the report.
-        tenancy_id (str): The OCID of the tenancy for the report.
+        compartment_id (str): The OCID of the compartment for the report.
         all_shapes (list): List of available shapes.
         shape_name (str): The name of the instance shape to report on.
         shape_ocpus (float): Number of OCPUs for the instance shape (relevant for flex shapes).
@@ -283,7 +288,7 @@ def create_and_print_report(region, core_client, availability_domain, fault_doma
                 
     # Create the details for the compute capacity report
     report_details = oci.core.models.CreateComputeCapacityReportDetails(
-        compartment_id=tenancy_id,
+        compartment_id=compartment_id,
         availability_domain=availability_domain,
         shape_availabilities=[
             oci.core.models.CreateCapacityReportShapeAvailabilityDetails(
@@ -303,6 +308,10 @@ def create_and_print_report(region, core_client, availability_domain, fault_doma
             print(f"{region:<20} {availability_domain:<30} {fault_domain:<20} {shape_name:<25} {result.availability_status}")
 
     except oci.exceptions.ServiceError as e:
+        
+        log_pattern = r"shape .+ not found"
+        compartment_name = get_compartment_name(identity_client, compartment_id)
+
         if "Invalid shape config" in e.message or "Invalid ratio" in e.message:
             print_error(
                 e.message,
@@ -311,7 +320,15 @@ def create_and_print_report(region, core_client, availability_domain, fault_doma
                 "",
                 "https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
             )
-        else:
+        elif "Authorization failed" in e.message:
+            print_error(
+                e.message,
+                "",
+                f"Do you have admin rights at the tenancy level or on the compartment: {compartment_name} ?",
+                "",
+                "If not, please specify a compartment OCID that you have access to."
+                )
+        elif re.search(log_pattern, e.message):
             print_error(
                 e.message,
                 "",
@@ -319,4 +336,9 @@ def create_and_print_report(region, core_client, availability_domain, fault_doma
                 "https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm",
                 "or restart this script without '-shape' argument"
             )
+        else:
+            print_error(
+                e.message
+            )
+
         raise SystemExit(1)

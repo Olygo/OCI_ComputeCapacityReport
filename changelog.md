@@ -1,6 +1,17 @@
 # Changelog
-Version 2.0.0
 
+Version 2.0.1
+
+- Add support for non-admin users:
+
+    add the set_user_compartment function in ./modules/identity.py.
+	Include the -su argument to enable administrators to bypass the script prompt.
+    Include the -comp argument to allow non-admin users to specify their compartment and bypass the script prompt.
+
+- Implement a compartment state check.
+- Enhance the error log message in the create_and_print_report function
+
+Version 2.0.0
 ## New Features
 
 - Automated Authentication Testing: 

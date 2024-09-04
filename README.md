@@ -1,6 +1,6 @@
 # OCI_ComputeCapacityReport
 
-**version: 2.0.0**
+**version: 2.0.1**
 
 **Check the Availability of Any Compute Shape Across OCI Regions !**
 
@@ -42,13 +42,16 @@ When no arguments are provided, OCI_ComputeCapacityReport will :
     3- Instance_Principal authentication
 
 - select the tenancy Home Region
-- display [computes shapes names](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
+- display [compute shape names](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
+- Prompt the users to confirm whether they have tenancy admin rights. If they don't, ask them to provide the compartment OCID
 - prompt user to select a compute shape name
 
 
 ## Script options:
 
 - Enforce an authentication method, e.g., -auth cs | cf | ip
+- Tenant administrators can bypass script query using -su
+- Non-admin users can specify their own compartment ocid e.g., -comp ocid...
 - Select a specific region, e.g., -region eu-frankfurt-1
 - Target all subscribed regions, e.g., -region all_regions
 - Specify a shape name, e.g., -shape VM.Standard.E5.Flex
@@ -59,10 +62,12 @@ When no arguments are provided, OCI_ComputeCapacityReport will :
 
 | Argument      | Parameter            | Description                                                                                        |
 | -----------   | -------------------- | -------------------------------------------------------------------------------------------------- |
-| -auth         | auth_method          | Force an authentication method : 'cs' (cloudshell), 'cf' (config file), 'ip' (instance principals' | 
-| -config_file  | config_file_path     | Path to your OCI config file, default: ~/.oci/config                                               |
-| -profile      | config_profile       | Config file section to use, default: DEFAULT'                                                      | 
-| -region       | region_name          | Region name to analyze, e.g. "eu-frankfurt-1" or "all_regions", default is home_region             | 
+| -auth         | auth_method          | Force an authentication method : 'cs' (cloudshell), 'cf' (config file), 'ip' (instance principals) | 
+| -config_file  | config_file_path     | Path to your OCI config file, default: '~/.oci/config'                                             |
+| -profile      | config_profile       | Config file section to use, default: 'DEFAULT'                                                     | 
+| -su           |                      | Notify the script that you have tenancy-level admin rights to prevent prompting                    | 
+| -comp         | compartment_ocid     | Filter on a compartment when you do not have Admin rights at the tenancy level                     | 
+| -region       | region_name          | Region name to analyze, e.g. "eu-frankfurt-1" or "all_regions", default: 'home_region'             | 
 | -shape        | shape_name           | Compute shape name you want to analyze                                                             | 
 | -ocpus        | integer or float     | Specify a particular amount of oCPU                                                                | 
 | -memory       | integer or float     | Specify a particular amount of memory                                                              | 

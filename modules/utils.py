@@ -6,7 +6,6 @@ from os import name
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # def colors
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 class Color:
     ESCAPE_SEQ_START = '\033[{}m'
     ESCAPE_SEQ_END = '\033[0m'
@@ -42,7 +41,6 @@ black_b = Color(40)
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Clear shell screen
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def clear():
     try:
         if name == 'nt':  # Windows
@@ -55,7 +53,6 @@ def clear():
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Expand local path
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def path_expander(path):
 
     try:
@@ -67,7 +64,6 @@ def path_expander(path):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print script info
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def print_info(color, v1, v2, v3):
 
     align = '<35' if isinstance(v3, int) else '35'

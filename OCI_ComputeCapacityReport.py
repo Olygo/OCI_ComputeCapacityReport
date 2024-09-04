@@ -4,7 +4,7 @@
 # name: OCI_ComputeCapacityReport.py
 #
 # Author: Florian Bonneville
-# Version: 2.0.0 - September 1st, 2024
+# Version: 2.0.1 - September 4, 2024
 #
 # Disclaimer: 
 # This script is an independent tool developed by 
@@ -42,6 +42,12 @@ def parse_arguments():
     parser.add_argument('-profile', default='DEFAULT', dest='config_profile',
                         help='Config file section to use, default: DEFAULT')
 
+    parser.add_argument('-su', action='store_true',default=False, dest='su',
+                        help='Notify the script that you have tenancy-level admin rights to prevent prompting.')
+
+    parser.add_argument('-comp', default='', dest='compartment',
+                        help='Filter on a compartment when you do not have Admin rights at the tenancy level')
+    
     parser.add_argument('-region', default='', dest='target_region',
                         help='Region name to analyze, e.g. "eu-frankfurt-1" or "all_regions", default is home region')
  
@@ -57,7 +63,7 @@ def parse_arguments():
     return parser.parse_args()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Fetch command line arguments
+# Load command line arguments
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 args=parse_arguments()
 
@@ -125,14 +131,14 @@ print(green(f"{'*'*94:94}\n"))
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set report variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+user_compartment = set_user_compartment(identity_client, args, tenancy_id)
 user_shape_name = args.shape
 user_shape_ocpus = args.ocpus
 user_shape_memory = args.memory
 
 # Prompt for a shape name if none is provided
 if not user_shape_name:
-   user_shape_name = set_user_shape_name(home_region, config, signer, tenancy_id) 
+   user_shape_name = set_user_shape_name(home_region, config, signer, user_compartment) 
 
 # Specific request for DenseIO Flex shapes
 if user_shape_name in denseio_flex_shapes:
@@ -142,16 +148,14 @@ if user_shape_name in denseio_flex_shapes:
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print output header
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 print(f"{'REGION':<20} {'AVAILABILITY_DOMAIN':<30} {'FAULT_DOMAIN':<20} {'SHAPE':<25} {'AVAILABILITY'}\n")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Start analysis
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 for region in regions_validated:
         config['region']=region.region_name
-        process_region(region, config, signer, tenancy_id, user_shape_name, user_shape_ocpus, user_shape_memory)
+        process_region(region, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # End script duration counter

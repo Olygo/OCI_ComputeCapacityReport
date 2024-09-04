@@ -8,7 +8,6 @@ from modules.utils import clear, green, yellow, red, print_error, print_info
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # set custom retry strategy
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 custom_retry_strategy = oci.retry.RetryStrategyBuilder(
                             max_attempts_check=True,
                             max_attempts=3,
@@ -22,7 +21,6 @@ custom_retry_strategy = oci.retry.RetryStrategyBuilder(
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Manage OCI authentication
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def init_authentication(user_auth, config_file_path, config_profile):
 
     """
@@ -209,7 +207,6 @@ def authenticate_instance_principals(authentication_errors):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check connectivity to OCI regions
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def check_region_connectivity(region, config, signer, custom_retry_strategy):
 
     """
@@ -292,7 +289,6 @@ def validate_region_connectivity(regions, config, signer):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check compartment state
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def check_compartment_state(identity_client, compartment_id):
 
     """
@@ -339,9 +335,104 @@ def check_compartment_state(identity_client, compartment_id):
         raise SystemExit(1)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# get compartment name
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+def get_compartment_name(identity_client, compartment_id):
+
+    """
+    retrieve compartment name from compartment ocid
+
+    Args:
+        identity_client: The OCI Identity client to interact with the API.
+        compartment_id (str): The OCID of the compartment to process.
+
+    Returns:
+        name of the compartment (str)
+        Raise a SystemExit if any error
+    """
+
+    try:
+        compartment_name = identity_client.get_compartment(compartment_id).data.name
+        return compartment_name
+
+    except oci.exceptions.ServiceError as e:
+        print_error("Compartment_id error:", compartment_id, e.code, e.message)
+        raise SystemExit(1)
+    
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set target compartment for capacity report query
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+def set_user_compartment(identity_client, args, tenancy_id):
+
+    """
+    Determines and returns the user compartment based on their administrative rights and input.
+
+    This function first verifies the compartment provided by the user. If there is an error, 
+    it prompts the user to specify whether they have Administrator rights at the tenancy level. 
+    Based on the user's response, the function either returns the tenancy ID, requests the user 
+    to input their compartment OCID, or exits the application.
+
+    Parameters:
+        args: command line arguments that include 'su' (superuser) and 'compartment'.
+            If 'args.su' is True or 'args.compartment' is provided, the function returns 'args.compartment' or 'tenancy_id'.
+        tenancy_id (str): The tenancy ID to be returned if the user confirms they have Administrator rights.
+
+    Returns:
+        str: The compartment OCID if the user selects 'No', or the tenancy ID if the user selects 'Yes'.
+
+    Raises:
+        SystemExit: If the user selects 'Quit', the function exits the application.
+    """
+
+    valid_inputs = ('Y', 'YES', 'N', 'NO', 'Q', 'QUIT')
+
+    if args.su:
+        return tenancy_id
+
+    if args.compartment:
+        try:
+            compartment=identity_client.get_compartment(args.compartment).data
+
+            if compartment.lifecycle_state == 'ACTIVE':
+                return args.compartment
+            else:
+                print(red(f"\nCompartment state error: {compartment.name} is {compartment.lifecycle_state}\n"))
+
+        except oci.exceptions.ServiceError as e:
+            print(red(f"\nCompartment error: {args.compartment} => {e.code} - {e.message}\n"))
+    
+    while True:
+        user_input = input(yellow("Do you have Administrator rights at the tenancy level? [Y]es, [N]o, [Q]uit: ")).strip().upper()
+
+        if user_input in valid_inputs:
+        
+            if user_input in ('Y', 'YES'):
+                print()
+                return tenancy_id
+        
+            elif user_input in ('N', 'NO'):
+                user_compartment = input(yellow("Please enter a compartment OCID to which you have access: ")).strip().lower()
+                
+                try:
+                    compartment=identity_client.get_compartment(user_compartment).data
+        
+                    if compartment.lifecycle_state == 'ACTIVE':
+                        print()
+                        return user_compartment
+                    else:
+                        print(red(f"\nCompartment state error: {compartment.lifecycle_state}\n"))
+
+                except oci.exceptions.ServiceError as e:
+                    print(red(f"\nCompartment error: {e.code} - {e.message}\n"))
+
+            elif user_input in ('Q', 'QUIT'):
+                raise SystemExit("Quitting the program as per user request.\n")
+        else:
+            print(red("\nInvalid input. Please enter 'Y', 'Yes', 'N', 'No', 'Q', or 'Quit'\n"))
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get home region
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def get_home_region(identity_client, tenancy_id):
 
     """
@@ -370,7 +461,6 @@ def get_home_region(identity_client, tenancy_id):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get all subscribed region in the tenancy
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def get_region_subscription_list(identity_client, tenancy_id, target_region):
 
     """
@@ -427,7 +517,6 @@ def get_region_subscription_list(identity_client, tenancy_id, target_region):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get Availablity Domains in the region
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def get_availability_domains(identity_client, tenancy_id):
 
     """
@@ -465,7 +554,6 @@ def get_availability_domains(identity_client, tenancy_id):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get Fault Domains in an Availability Domain
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 def get_fault_domains(identity_client, tenancy_id, availability_domain):
 
     """
