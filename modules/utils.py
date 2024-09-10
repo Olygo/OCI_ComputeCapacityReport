@@ -42,6 +42,7 @@ black_b = Color(40)
 # Clear shell screen
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 def clear():
+
     try:
         if name == 'nt':  # Windows
             os.system('cls')
@@ -97,14 +98,3 @@ def print_error(*args, color=red, level='ERROR'):
     print(blank_line)
     print(blank_line)
     print(color("╚" + "=" * error_box_width + "╝\n"))
-
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Calculate script execution duration
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-def format_duration(seconds):
-
-    days, rem = divmod(seconds, 86400)
-    hours, rem = divmod(rem, 3600)
-    minutes, seconds = divmod(rem, 60)
-    return f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds"

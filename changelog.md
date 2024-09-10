@@ -1,6 +1,21 @@
 # Changelog
+Version 3.0.0
+## New Features
+
+- Add interactive support for admin & non-admin:
+    admins can bypass the control using -su
+
+- Add oCPU and Memory filters & display
+
+- Add a loop to the script so that it automatically relaunches after completing the first query or encountering an error
+
+- Add re-authentication function
+	Attempts to reauthenticate by prompting the user to specify a config file if all prior authentication methods have failed
+
+- Enhance code and errors management
 
 Version 2.0.1
+## New Features
 
 - Add support for non-admin users:
 
@@ -9,6 +24,7 @@ Version 2.0.1
     Include the -comp argument to allow non-admin users to specify their compartment and bypass the script prompt.
 
 - Implement a compartment state check.
+
 - Enhance the error log message in the create_and_print_report function
 
 Version 2.0.0

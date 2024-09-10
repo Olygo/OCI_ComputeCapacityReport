@@ -1,12 +1,12 @@
 # OCI_ComputeCapacityReport
 
-**version: 2.0.1**
+**version: 3.0.0**
 
 **Check the Availability of Any Compute Shape Across OCI Regions !**
 
 Easily find out which regions offer the latest compute shapes, such as VM.Standard.E5.Flex.
 
-OCI_ComputeCapacityReport provides the availability status down to the Fault Domain level.
+OCI_ComputeCapacityReport provides the availability status down to the Fault Domain level and automatically relaunches after completing the first query or encountering an error.
 
 Output meanings are:
 
@@ -31,9 +31,9 @@ Output meanings are:
 	python3 ./OCI_ComputeCapacityReport.py
 
 
-When no arguments are provided, OCI_ComputeCapacityReport will :
+When no arguments are provided, OCI_ComputeCapacityReport **automatically**:
 
-- attempt to authenticate using all available authentication methods:
+- Attempts to authenticate using all available authentication methods:
 
     1- CloudShell authentication
     
@@ -41,22 +41,32 @@ When no arguments are provided, OCI_ComputeCapacityReport will :
     
     3- Instance_Principal authentication
 
-- select the tenancy Home Region
-- display [compute shape names](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
-- Prompt the users to confirm whether they have tenancy admin rights. If they don't, ask them to provide the compartment OCID
-- prompt user to select a compute shape name
+    4- If all authentication fail, prompts the user to provide a config_file custom path and a config_profile section.
+
+- Selects the tenancy's Home Region
+- Asks if the user is a tenancy Admin
+	- If user is not a tenancy Admin, asks for a compartment OCID
+	- Using -su option will bypass this question
+- Displays available [compute shape names](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm)
+- Asks user to enter a compute shape name
 
 
 ## Script options:
 
-- Enforce an authentication method, e.g., -auth cs | cf | ip
-- Tenant administrators can bypass script query using -su
-- Non-admin users can specify their own compartment ocid e.g., -comp ocid...
-- Select a specific region, e.g., -region eu-frankfurt-1
-- Target all subscribed regions, e.g., -region all_regions
-- Specify a shape name, e.g., -shape VM.Standard.E5.Flex
-- Optionally define oCPUs and memory amount
+OCI_ComputeCapacityReport can be fully automated using the following arguments:
 
+- Enforce an authentication method, **-auth cs** | **cf** | **ip**
+- Tenant administrators can bypass the 'Admin question' using **-su**
+- Non-admin users can specify their own compartment ocid **-comp ocid1.xxxx**
+- Select a specific subscribed region instead of the home region **-region eu-frankfurt-1**
+- Target all subscribed regions **-region all_regions**
+- Specify a shape name **-shape VM.Standard.E5.Flex**
+- Optionally define oCPUs and memory amount **-ocpus 10** **-memory 30**
+
+**OCI_ComputeCapacityReport** ensures the correct oCPU-to-memory ratio for each shape type. 
+If an invalid configuration is entered, such as requesting 10 oCPUs with only 2 GB of memory, 
+it automatically adjusts the values to meet the required specifications. 
+Similarly, it enforces both the minimum and maximum limits for oCPUs and memory based on the shape type.
 
 ## Optional parameters for execution:
 
@@ -69,15 +79,15 @@ When no arguments are provided, OCI_ComputeCapacityReport will :
 | -comp         | compartment_ocid     | Filter on a compartment when you do not have Admin rights at the tenancy level                     | 
 | -region       | region_name          | Region name to analyze, e.g. "eu-frankfurt-1" or "all_regions", default: 'home_region'             | 
 | -shape        | shape_name           | Compute shape name you want to analyze                                                             | 
-| -ocpus        | integer or float     | Specify a particular amount of oCPU                                                                | 
-| -memory       | integer or float     | Specify a particular amount of memory                                                              | 
+| -ocpus        | integer              | Specify a particular amount of oCPU                                                                | 
+| -memory       | integer              | Specify a particular amount of memory                                                              | 
 
 ## Examples of Usage
 ##### Default :
 	
 	python3 ./OCI_ComputeCapacityReport.py
 
-try all authentication methods, analyze Home Region only and prompt user to get a compute shape name
+try all authentication methods, check capacity in the Home Region only and prompt user to get a compute shape name
 
 ##### Authenticate using a config_file stored in a custom location:
 	
@@ -125,15 +135,25 @@ allow dynamic-group 'Your_Identity_Domain_Name'/'OCI_Scripting' to read all_reso
 ##### Default run, prompt user for a compute shape name :
 ![00](./.images/00.png)
 
-##### Script output :
+##### Support of Flexible DenseIO compute shapes :
 ![01](./.images/01.png)
 
-##### Support of Flexible DenseIO compute shapes :
+##### Run script with parameters :
+```
+python3 ./OCI_ComputeCapacityReport.py \
+-auth cf \
+-config_file ~/Documents/config/my_config \
+-profile OCI_FBO \
+-shape VM.Standard.E5.Flex \
+-ocpus 10 \
+-memory 20 \
+-region eu-paris-1 \
+-su
+```
 ![01](./.images/02.png)
 
-##### Check shape availability with a specific amount of oCPUs and memory :
+##### Run script without tenancy admin rights :
 ![01](./.images/03.png)
-
 
 ## Compute Shapes Tested and Validated as of September 1, 2024
 

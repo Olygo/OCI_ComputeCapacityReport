@@ -4,7 +4,7 @@
 # name: OCI_ComputeCapacityReport.py
 #
 # Author: Florian Bonneville
-# Version: 2.0.1 - September 4, 2024
+# Version: 3.0.0 - September 10, 2024
 #
 # Disclaimer: 
 # This script is an independent tool developed by 
@@ -15,12 +15,12 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 import oci
-import time
 import os.path
 import argparse
-from modules.identity import *
-from modules.utils import green, clear, print_info, format_duration
-from modules.capacity import denseio_flex_shapes, process_region, set_denseio_shape_ocpus, set_user_shape_name
+from modules.utils import green, clear, print_info
+from modules.exceptions import RestartFlowException 
+from modules.identity import init_authentication, get_region_subscription_list, validate_region_connectivity, get_home_region, set_user_compartment
+from modules.capacity import denseio_flex_shapes, process_region, set_denseio_shape_ocpus, set_user_shape_name, set_user_shape_ocpus, set_user_shape_memory, print_shape_list
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Clear shell screen
@@ -54,10 +54,10 @@ def parse_arguments():
     parser.add_argument('-shape', default='', dest='shape',
                         help='shape name to search')
     
-    parser.add_argument('-ocpus', default='', dest='ocpus',
+    parser.add_argument('-ocpus', type=int, dest='ocpus',
                         help='Indicate a specific ocpus amount')
     
-    parser.add_argument('-memory', default='', dest='memory',
+    parser.add_argument('-memory', type=int, dest='memory',
                         help='Indicate a specific memory amount')
     
     return parser.parse_args()
@@ -68,9 +68,18 @@ def parse_arguments():
 args=parse_arguments()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Start script duration counter
+# Init OCI authentication
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-analysis_start = time.perf_counter()
+config, signer, tenancy, auth_name, details = init_authentication(
+     args.user_auth, 
+     args.config_file_path, 
+     args.config_profile
+     )
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Clear shell screen in case of authentication errors
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+clear()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Start print script info
@@ -79,15 +88,9 @@ script_path = os.path.abspath(__file__)
 script_name = (os.path.basename(script_path))[:-3]
 print(green(f"\n{'*'*94:94}"))
 print_info(green, 'Analysis', 'started', script_name)
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Init OCI authentication
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-config, signer, tenancy_name = init_authentication(
-     args.user_auth, 
-     args.config_file_path, 
-     args.config_profile
-     )
+print_info(green, 'Login', 'success', auth_name)
+print_info(green, 'Login', 'profile', details)
+print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Init oci service client
@@ -136,30 +139,60 @@ user_shape_name = args.shape
 user_shape_ocpus = args.ocpus
 user_shape_memory = args.memory
 
-# Prompt for a shape name if none is provided
-if not user_shape_name:
-   user_shape_name = set_user_shape_name(home_region, config, signer, user_compartment) 
-
-# Specific request for DenseIO Flex shapes
-if user_shape_name in denseio_flex_shapes:
-    user_shape_ocpus = set_denseio_shape_ocpus(user_shape_name)
-    print()
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Print output header
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-print(f"{'REGION':<20} {'AVAILABILITY_DOMAIN':<30} {'FAULT_DOMAIN':<20} {'SHAPE':<25} {'AVAILABILITY'}\n")
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Start analysis
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-for region in regions_validated:
-        config['region']=region.region_name
-        process_region(region, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory)
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# End script duration counter
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-analysis_end = time.perf_counter()
-execution_time = analysis_end - analysis_start
-print(green(f"\nExecution time: {format_duration(execution_time)}\n"))
+def main(regions_validated, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory):
+
+    """
+    Function to initialize and start analysis based on the user shape configuration.
+    """
+
+    # If the user shape is not provided, prompt and set it.
+    if not user_shape_name:
+        if not hasattr(main, "first_execution"):
+            main.first_execution = True
+            # Print available shapes in the tenancy's home region
+            print_shape_list(home_region, config, signer, user_compartment)
+        user_shape_name = set_user_shape_name(home_region, config, signer, user_compartment)
+            
+    # Check if the shape is a DenseIO Flex shape
+    if user_shape_name in denseio_flex_shapes:
+        user_shape_ocpus = float(set_denseio_shape_ocpus(user_shape_name))
+        print()
+
+    # For shapes that are not Flex or Bare Metal unset ocpus and memory
+    elif ".Flex" not in user_shape_name or user_shape_name.startswith('BM.'):
+        user_shape_ocpus = 0
+        user_shape_memory = 0
+
+    # Default will be Flex shapes, set the OCPUs and memory, based on user input or defaults
+    else:
+        user_shape_ocpus = set_user_shape_ocpus(user_shape_name) if not args.ocpus else args.ocpus
+        user_shape_memory = set_user_shape_memory(user_shape_name) if not args.memory else args.memory
+
+    # Print header
+    print(f"\n{'REGION':<20} {'AVAILABILITY_DOMAIN':<30} {'FAULT_DOMAIN':<20} {'SHAPE':<25} {'OCPU':10} {'MEMORY':<10} {'AVAILABILITY'}\n")
+
+    for region in regions_validated:
+            config['region']=region.region_name
+            process_region(region, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory)
+
+# Start a loop to keep the script running until the user decides to quit
+while True:
+    try:
+        main(
+            regions_validated, 
+            config, 
+            signer, 
+            user_compartment, 
+            user_shape_name, 
+            user_shape_ocpus, 
+            user_shape_memory, 
+        )
+        # Reset user shape parameters for the next iteration
+        user_shape_ocpus = user_shape_memory = user_shape_name = 0
+    except RestartFlowException:
+        # Restart the "run" function if an error occurs in another function (e.g., when user submits an invalid shape).
+        pass

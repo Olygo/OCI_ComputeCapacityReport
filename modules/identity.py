@@ -21,21 +21,33 @@ custom_retry_strategy = oci.retry.RetryStrategyBuilder(
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Manage OCI authentication
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
+def retry_auth():
+
+    """
+    This function attempts to reauthenticate using the specified config_file if all previous authentication methods have failed. 
+    It prompts the user to provide a config_file custom path and a config_profile section.
+    """
+    print(yellow("\n-- All authentication methods have failed -- \n"))
+    retry_cf=input(yellow("Do you want to specify another config file path ? [Y/N]")).strip().upper()
+    print()
+    
+    if retry_cf in ("Y","YES"):
+        config_file_path=input(yellow("What is the path of your OCI config file: ")).strip()
+        print()
+        config_profile=input(yellow("What is the profile section name to use in this config file: ")).strip()
+        config, signer, tenancy_name, auth_name, details =init_authentication('cf', config_file_path, config_profile)
+
+        if config:
+            return config, signer, tenancy_name, auth_name, details
+        else:
+            raise SystemExit("Retrying config_file authentication failed. Please check your file and relaunch the process.")
+    else:
+        raise SystemExit("\nAll authentication methods have failed...\n")
+
 def init_authentication(user_auth, config_file_path, config_profile):
 
     """
     Initializes authentication based on user preference or tries multiple methods.
-    
-    Args:
-        user_auth (str): The preferred authentication method ('cs', 'cf', 'ip').
-        config_file_path (str): The path to the OCI config file.
-        config_profile (str): The profile name in the OCI config file.
-    
-    Returns:
-        tuple: (config, signer, tenancy_name) if authentication is successful.
-    
-    Raises:
-        SystemExit: If all authentication methods fail.
     """
     authentication_errors = {}
 
@@ -51,10 +63,10 @@ def init_authentication(user_auth, config_file_path, config_profile):
 
     # Try each authentication method until one succeeds
     for auth_method, args in methods_to_try:
-        config, signer, tenancy_name = auth_method(authentication_errors, *args)
+        config, signer, tenancy_name, auth_name, details = auth_method(authentication_errors, *args)
 
         if config:
-            return config, signer, tenancy_name
+            return config, signer, tenancy_name, auth_name, details
 
     # If all methods fail, print the errors and exit
     print("\r", end=' ' * 100 + '\r', flush=True)
@@ -63,20 +75,17 @@ def init_authentication(user_auth, config_file_path, config_profile):
         print_error(auth, error)
         print()
     
-    raise SystemExit(1)
+    config, signer, tenancy_name, auth_name, details= retry_auth()
+    if config:
+        return config, signer, tenancy_name, auth_name, details
+    else:
+        raise SystemExit(1)
 
 def authenticate_cloud_shell(authentication_errors):
 
     """
     Attempts to authenticate using OCI CloudShell.
     Validate the config by trying to get the tenancy_name.
-
-    Args:
-        authentication_errors (dict): A dictionary to store any errors encountered during the authentication process.
-
-    Returns:
-        tuple: Returns a tuple containing the OCI configuration, signer object, and tenancy name if authentication is successful;
-        otherwise, returns (None, None, None).
     """
 
     try:
@@ -91,7 +100,7 @@ def authenticate_cloud_shell(authentication_errors):
             authentication_errors['CloudShell_authentication'] = (
                 f"Not a CloudShell session: $OCI_CONFIG_FILE={env_config_file}, $OCI_CONFIG_PROFILE={env_config_section}"
             )
-            return None, None, None
+            return None, None, None, None, None
 
         # Load OCI configuration from file
         config = oci.config.from_file(env_config_file, env_config_section)
@@ -111,30 +120,21 @@ def authenticate_cloud_shell(authentication_errors):
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         tenancy = identity.get_tenancy(config['tenancy']).data
 
-        print_info(green, 'Login', 'success', 'delegation_token')
-        print_info(green, 'Login', 'token', delegation_token_location)
-        print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
+        #print_info(green, 'Login', 'success', 'delegation_token')
+        #print_info(green, 'Login', 'token', delegation_token_location)
+        #print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
 
-        return config, signer, tenancy.name
+        return config, signer, tenancy, 'delegation_token', delegation_token_location
 
     except Exception as e:
         authentication_errors['CloudShell_authentication'] = str(e).replace("\n", "")
-        return None, None, None
+        return None, None, None, None, None
 
 def authenticate_config_file(authentication_errors, config_file_path, config_profile):
 
     """
     Attempts to authenticate using OCI configuration file.
     Validate the config by trying to get the tenancy_name.
-
-    Args:
-        authentication_errors (dict): A dictionary to store any errors encountered during the authentication process.
-        config_file_path (str): The path to the OCI configuration file.
-        config_profile (str): The profile name within the OCI configuration file to use for authentication.
-
-    Returns: 
-        A tuple containing the configuration, signer, and tenancy name if authentication is successful;
-        otherwise, (None, None, None).
     """
 
     try:
@@ -160,28 +160,21 @@ def authenticate_config_file(authentication_errors, config_file_path, config_pro
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         tenancy = identity.get_tenancy(config['tenancy']).data
 
-        print_info(green, 'Login', 'success', 'config_file')
-        print_info(green, 'Login', 'profile', config_profile)
-        print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
+#        print_info(green, 'Login', 'success', 'config_file')
+#        print_info(green, 'Login', 'profile', config_profile)
+#        print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
 
-        return config, signer, tenancy.name
+        return config, signer, tenancy, 'config_file', config_profile
 
     except Exception as e:
         authentication_errors['Config_File_authentication'] = str(e).replace("\n", "")
-        return None, None, None
+        return None, None, None, None, None
 
 def authenticate_instance_principals(authentication_errors):
 
     """
     Attempts to authenticate using OCI instance principals.
     Validate the config by trying to get the tenancy_name.
-
-    Args:
-        authentication_errors (dict): A dictionary to store any authentication errors encountered.
-
-    Returns:
-        A tuple containing the OCI configuration, the signer, and the tenancy name if authentication is successful;
-        otherwise, returns (None, None, None).
     """
 
     try:
@@ -198,11 +191,11 @@ def authenticate_instance_principals(authentication_errors):
         print_info(green, 'Login', 'success', 'instance_principals')
         print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
 
-        return config, signer, tenancy.name
+        return config, signer, tenancy, 'instance_principals', ''
 
     except Exception as e:
         authentication_errors['Instance_Principals_authentication'] = str(e).replace("\n", "")
-        return None, None, None
+        return None, None, None, None, None
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check connectivity to OCI regions
@@ -210,16 +203,7 @@ def authenticate_instance_principals(authentication_errors):
 def check_region_connectivity(region, config, signer, custom_retry_strategy):
 
     """
-    Checks the connectivity of a single region and returns the region if successful.
-
-    Args:
-        region (object): The region to check.
-        config (dict): The OCI config dictionary.
-        signer (object): The OCI signer object.
-        custom_retry_strategy (oci.retry.RetryStrategy): The custom retry strategy.
-
-    Returns:
-        tuple: (region, success) where `success` is True if connectivity was successful, else False.
+    Checks the connectivity to regions and returns the region if successful.
     """
 
     try:
@@ -239,14 +223,6 @@ def validate_region_connectivity(regions, config, signer):
 
     """
     Validates the connectivity to multiple regions concurrently.
-
-    Args:
-        regions (list): List of region objects.
-        config (dict): The OCI config dictionary.
-        signer (object): The OCI signer object.
-
-    Returns:
-        list: A list of regions that were successfully validated.
     """
 
     custom_retry_strategy = oci.retry.RetryStrategyBuilder(
@@ -292,15 +268,7 @@ def validate_region_connectivity(regions, config, signer):
 def check_compartment_state(identity_client, compartment_id):
 
     """
-    Checks the state of a compartment
-
-    Args:
-        identity_client: The OCI Identity client to interact with the API.
-        compartment_id (str): The OCID of the compartment to check.
-
-    Returns:
-        None: If the compartment is active
-        Raise a SystemExit if any error
+    Check if a compartment is ACTIVE
     """
 
     try:
@@ -341,14 +309,6 @@ def get_compartment_name(identity_client, compartment_id):
 
     """
     retrieve compartment name from compartment ocid
-
-    Args:
-        identity_client: The OCI Identity client to interact with the API.
-        compartment_id (str): The OCID of the compartment to process.
-
-    Returns:
-        name of the compartment (str)
-        Raise a SystemExit if any error
     """
 
     try:
@@ -362,73 +322,72 @@ def get_compartment_name(identity_client, compartment_id):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set target compartment for capacity report query
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+def validate_compartment(identity_client, compartment_id):
+
+    """
+    Validate if the compartment is active.
+    """
+    
+    try:
+        compartment = identity_client.get_compartment(compartment_id).data
+        if compartment.lifecycle_state == 'ACTIVE':
+            return compartment_id
+        else:
+            print(red(f"\nCompartment state error: {compartment.name} is {compartment.lifecycle_state}"))
+    except oci.exceptions.ServiceError as e:
+        print(red(f"\nCompartment error: {compartment_id} => {e.code} - {e.message}"))
+    return None
+
+
 def set_user_compartment(identity_client, args, tenancy_id):
 
     """
     Determines and returns the user compartment based on their administrative rights and input.
-
-    This function first verifies the compartment provided by the user. If there is an error, 
-    it prompts the user to specify whether they have Administrator rights at the tenancy level. 
+    Verifies the compartment provided by the user. If there is an error, 
+    prompts the user to specify whether they have Administrator rights at the tenancy level. 
     Based on the user's response, the function either returns the tenancy ID, requests the user 
     to input their compartment OCID, or exits the application.
-
-    Parameters:
-        args: command line arguments that include 'su' (superuser) and 'compartment'.
-            If 'args.su' is True or 'args.compartment' is provided, the function returns 'args.compartment' or 'tenancy_id'.
-        tenancy_id (str): The tenancy ID to be returned if the user confirms they have Administrator rights.
-
-    Returns:
-        str: The compartment OCID if the user selects 'No', or the tenancy ID if the user selects 'Yes'.
-
-    Raises:
-        SystemExit: If the user selects 'Quit', the function exits the application.
     """
 
-    valid_inputs = ('Y', 'YES', 'N', 'NO', 'Q', 'QUIT')
+    valid_inputs = {'Y', 'YES', 'N', 'NO', 'Q', 'QUIT'}
 
+    # If super user mode is enabled, return the tenancy ID directly.
     if args.su:
         return tenancy_id
 
+    # If a compartment is provided, validate it.
     if args.compartment:
-        try:
-            compartment=identity_client.get_compartment(args.compartment).data
+        valid_compartment = validate_compartment(identity_client, args.compartment)
+        if valid_compartment:
+            return valid_compartment
 
-            if compartment.lifecycle_state == 'ACTIVE':
-                return args.compartment
-            else:
-                print(red(f"\nCompartment state error: {compartment.name} is {compartment.lifecycle_state}\n"))
-
-        except oci.exceptions.ServiceError as e:
-            print(red(f"\nCompartment error: {args.compartment} => {e.code} - {e.message}\n"))
-    
+    # Interactive input for determining the compartment
     while True:
         user_input = input(yellow("Do you have Administrator rights at the tenancy level? [Y]es, [N]o, [Q]uit: ")).strip().upper()
 
-        if user_input in valid_inputs:
-        
-            if user_input in ('Y', 'YES'):
-                print()
-                return tenancy_id
-        
-            elif user_input in ('N', 'NO'):
-                user_compartment = input(yellow("Please enter a compartment OCID to which you have access: ")).strip().lower()
-                
-                try:
-                    compartment=identity_client.get_compartment(user_compartment).data
-        
-                    if compartment.lifecycle_state == 'ACTIVE':
-                        print()
-                        return user_compartment
-                    else:
-                        print(red(f"\nCompartment state error: {compartment.lifecycle_state}\n"))
-
-                except oci.exceptions.ServiceError as e:
-                    print(red(f"\nCompartment error: {e.code} - {e.message}\n"))
-
-            elif user_input in ('Q', 'QUIT'):
-                raise SystemExit("Quitting the program as per user request.\n")
-        else:
+        if user_input not in valid_inputs:
             print(red("\nInvalid input. Please enter 'Y', 'Yes', 'N', 'No', 'Q', or 'Quit'\n"))
+            continue
+
+        if user_input in {'Y', 'YES'}:
+            print()
+            return tenancy_id
+
+        if user_input in {'N', 'NO'}:
+            while True:
+                user_compartment = input(yellow("\nEnter a compartment OCID to which you have access or [Q]uit: ")).strip().lower()
+
+                if user_compartment in {'q', 'quit'}:
+                    raise SystemExit("\nQuitting the program as per user request.\n")
+
+                valid_compartment = validate_compartment(identity_client, user_compartment)
+                if valid_compartment:
+                    print()
+                    return valid_compartment
+
+        if user_input in {'Q', 'QUIT'}:
+            raise SystemExit("\nQuitting the program as per user request.\n")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get home region
@@ -437,13 +396,6 @@ def get_home_region(identity_client, tenancy_id):
 
     """
     Fetches the the home region for the given tenancy.
-
-    Args:
-        identity_client: OCI identity service client.
-        tenancy_id: The OCID of the tenancy.
-
-    Returns:
-        The home region of the tenancy.
     """
 
     try:
@@ -465,14 +417,6 @@ def get_region_subscription_list(identity_client, tenancy_id, target_region):
 
     """
     Fetches the list of subscribed regions for a given tenancy.
-
-    Args:
-        identity_client: OCI identity service client.
-        tenancy_id: The OCID of the tenancy.
-        target_region: A specific region name or 'all_regions'.
-
-    Returns:
-        A list of OCI region subscriptions based on the specified target region.
     """
 
     try:
@@ -521,14 +465,6 @@ def get_availability_domains(identity_client, tenancy_id):
 
     """
     Fetches the list of availability domains for a given region.
-
-    Args:
-        identity_client: OCI identity service client.
-        tenancy_id (str): The OCID of the tenancy.
-
-    Returns:
-        list: A list of availability domain names.
-        SystemExit: If a ServiceError occurs while fetching availability domains, the program exits.
     """
     
     try:
@@ -558,14 +494,6 @@ def get_fault_domains(identity_client, tenancy_id, availability_domain):
 
     """
     Fetches the list of fault domains for a given availability domain.
-
-    Args:
-        identity_client: OCI identity service client.
-        tenancy_id (str): The OCID of the tenancy.
-
-    Returns:
-        list: A list of availability domain names.
-        SystemExit: If a ServiceError occurs while fetching availability domains, the program exits.
     """
 
     try:
