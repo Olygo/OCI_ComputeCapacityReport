@@ -363,4 +363,5 @@ def create_and_print_report(region, identity_client, core_client, availability_d
                 )
             raise SystemExit(1)
         else:
+            print_error(e.message)
             raise RestartFlowException
