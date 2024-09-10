@@ -120,10 +120,6 @@ def authenticate_cloud_shell(authentication_errors):
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         tenancy = identity.get_tenancy(config['tenancy']).data
 
-        #print_info(green, 'Login', 'success', 'delegation_token')
-        #print_info(green, 'Login', 'token', delegation_token_location)
-        #print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
-
         return config, signer, tenancy, 'delegation_token', delegation_token_location
 
     except Exception as e:
@@ -160,10 +156,6 @@ def authenticate_config_file(authentication_errors, config_file_path, config_pro
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         tenancy = identity.get_tenancy(config['tenancy']).data
 
-#        print_info(green, 'Login', 'success', 'config_file')
-#        print_info(green, 'Login', 'profile', config_profile)
-#        print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
-
         return config, signer, tenancy, 'config_file', config_profile
 
     except Exception as e:
@@ -187,9 +179,6 @@ def authenticate_instance_principals(authentication_errors):
         # Validate the config by trying to get the tenancy_name
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         tenancy = identity.get_tenancy(config['tenancy']).data
-
-        print_info(green, 'Login', 'success', 'instance_principals')
-        print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
 
         return config, signer, tenancy, 'instance_principals', ''
 
