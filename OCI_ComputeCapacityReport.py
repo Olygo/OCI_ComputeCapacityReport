@@ -13,6 +13,7 @@
 # any warranty or official endorsement from Oracle
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+version = '3.0.0'
 
 import oci
 import os.path
@@ -86,8 +87,10 @@ clear()
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 script_path = os.path.abspath(__file__)
 script_name = (os.path.basename(script_path))[:-3]
+script_version = version
 print(green(f"\n{'*'*94:94}"))
-print_info(green, 'Analysis', 'started', script_name)
+print_info(green, 'Script', 'started', script_name)
+print_info(green, 'Script', 'version', script_version)
 print_info(green, 'Login', 'success', auth_name)
 print_info(green, 'Login', 'profile', details)
 print_info(green, 'Tenancy', tenancy.name, f'home region: {tenancy.home_region_key}')
