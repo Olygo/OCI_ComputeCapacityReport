@@ -98,14 +98,19 @@ def set_user_shape_name(home_region, config, signer, compartment_id):
         set_user_shape_name.first_execution = True
         user_input = input(yellow("\nEnter the name of a shape to discover its regional capacity or [Q]uit: ")).strip()
 
-        if user_input in {'Q', 'QUIT', 'q', 'quit'}:
+        if user_input == '':
+            raise RestartFlowException
+        elif user_input in {'Q', 'QUIT', 'q', 'quit'}:
             raise SystemExit("\nQuitting the program as per user request.\n")
         else:
             return user_input
     else:
         user_input = input(yellow("\nEnter another shape name, [P]rint shapes list or [Q]uit: ")).strip()
 
-        if user_input in {'P', 'PRINT', 'p', 'print'}:
+        if user_input == '':
+            raise RestartFlowException
+
+        elif user_input in {'P', 'PRINT', 'p', 'print'}:
             print_shape_list(home_region, config, signer, compartment_id)
             user_input = input(yellow("\nEnter a shape name or [Q]uit: ")).strip()
 
