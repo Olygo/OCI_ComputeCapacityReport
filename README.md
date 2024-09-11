@@ -14,6 +14,14 @@ Output meanings are:
 - **HARDWARE_NOT_SUPPORTED** => The necessary hardware has not yet been deployed in this region.
 - **OUT_OF_HOST_CAPACITY** => Additional hardware is currently being deployed in this region
 
+## Quick Start
+
+```
+python3 -m pip install oci -U --user
+git clone https://github.com/Olygo/OCI_ComputeCapacityReport
+python3 ./OCI_ComputeCapacityReport/OCI_ComputeCapacityReport.py
+```
+
 ## Table of Contents
 
 - [How to use OCI_ComputeCapacityReport ?](### How-to-use-OCI_ComputeCapacityReport-?)
