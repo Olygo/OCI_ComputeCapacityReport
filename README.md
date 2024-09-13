@@ -1,6 +1,6 @@
 # OCI_ComputeCapacityReport
 
-**version: 3.0.0**
+**version: 3.0.2**
 
 **Check the Availability of Any Compute Shape Across OCI Regions !**
 

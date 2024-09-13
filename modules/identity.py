@@ -202,10 +202,9 @@ def check_region_connectivity(region, config, signer, custom_retry_strategy):
         # Validate the connecivity by trying to get the tenancy_name
         identity = oci.identity.IdentityClient(config=config, signer=signer)
         identity.get_tenancy(config['tenancy'],retry_strategy=custom_retry_strategy).data
-
         return region, True
         
-    except oci.exceptions.RequestException:
+    except Exception:
         return region, False
 
 def validate_region_connectivity(regions, config, signer):
@@ -216,7 +215,7 @@ def validate_region_connectivity(regions, config, signer):
 
     custom_retry_strategy = oci.retry.RetryStrategyBuilder(
         max_attempts_check=True,
-        max_attempts=3,
+        max_attempts=10,
         total_elapsed_time_check=True,
         total_elapsed_time_seconds=10,
         retry_max_wait_between_calls_seconds=2,
@@ -224,7 +223,7 @@ def validate_region_connectivity(regions, config, signer):
     ).get_retry_strategy()
 
     regions_validated = []
-    
+
     with ThreadPoolExecutor(max_workers=10) as executor:
         # Submit all region connectivity checks concurrently
         futures = {executor.submit(check_region_connectivity, region, config, signer, custom_retry_strategy): region for region in regions}

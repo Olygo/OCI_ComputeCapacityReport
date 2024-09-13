@@ -1,4 +1,12 @@
 # Changelog
+
+Version 3.0.2
+- Handles specific use case exceptions with flexible shapes 
+- Increases region connectivity timeout and improves exceptions
+
+Version 3.0.1
+- minor fixes
+
 Version 3.0.0
 ## New Features
 

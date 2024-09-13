@@ -200,28 +200,45 @@ def get_shape_config(user_shape_name, shapes_in_region, user_shape_ocpus, user_s
     elif user_shape_name == "VM.Standard.A2.Flex":
         shape_info = next((shape for shape in shapes_in_region if shape.shape == user_shape_name), None)
 
-        # Ensure the ocpu is at least 1 and doesn't exceed max allowed OCPU
-        user_shape_ocpus = min(user_shape_ocpus, shape_info.ocpu_options.max)
+        if shape_info:
+            # Ensure the OCPU is at least 1 and doesn't exceed the max allowed OCPU
+            user_shape_ocpus = max(1, min(user_shape_ocpus, shape_info.ocpu_options.max))
 
-        # Ensure the memory is at least 1 GB and at least twice the oCPU amount
-        user_shape_memory = max(1, user_shape_ocpus * 2, user_shape_memory)
+            # Ensure the memory is at least 1 GB and at least twice the oCPU amount
+            user_shape_memory = max(1, user_shape_ocpus * 2, user_shape_memory)
 
-        # Ensure the memory doesn't exceed max allowed per OCPU and total max
-        user_shape_memory = min(user_shape_memory, user_shape_ocpus * shape_info.memory_options.max_per_ocpu_in_gbs)
-        user_shape_memory = min(user_shape_memory, shape_info.memory_options.max_in_g_bs)
+            # Apply the memory constraints: max memory per OCPU and total max memory
+            user_shape_memory = min(
+                user_shape_memory, 
+                user_shape_ocpus * shape_info.memory_options.max_per_ocpu_in_gbs, 
+                shape_info.memory_options.max_in_g_bs
+            )
+        else:
+            # Handle the case where shape_info is None due to resource constraints (HARDWARE_NOT_SUPPORTED or Tenancy limit)
+            user_shape_ocpus = 1
+            user_shape_memory = 2  # Default to 2 GB if no valid shape is found
+
 
     # Flex: Shape-Specific configuration
     elif shape_is_flex:
         shape_info = next((shape for shape in shapes_in_region if shape.shape == user_shape_name), None)
 
-        # Ensure user_shape_ocpus doesn't exceed the max limit
-        user_shape_ocpus = min(user_shape_ocpus, shape_info.ocpu_options.max)
-
-        # Apply the memory constraints
-        user_shape_memory = max(1, user_shape_memory)  # Minimum memory should be 1
-        user_shape_memory = max(user_shape_ocpus, user_shape_memory)  # Minimum memory should be at least amount of oCPU
-        user_shape_memory = min(user_shape_memory, user_shape_ocpus * shape_info.memory_options.max_per_ocpu_in_gbs)  # Max memory based on OCPU limit
-        user_shape_memory = min(user_shape_memory, shape_info.memory_options.max_in_g_bs)  # Max memory based on total max memory
+        if shape_info:
+            # Ensure user_shape_ocpus doesn't exceed the max limit
+            user_shape_ocpus = min(user_shape_ocpus, shape_info.ocpu_options.max)
+            
+            # Apply the memory constraints
+            user_shape_memory = max(1, user_shape_memory)  # Minimum memory should be 1
+            user_shape_memory = max(user_shape_ocpus, user_shape_memory)  # Ensure memory >= OCPU count
+            user_shape_memory = min(
+                user_shape_memory, 
+                shape_info.memory_options.max_in_g_bs,  # Max total memory limit
+                user_shape_ocpus * shape_info.memory_options.max_per_ocpu_in_gbs  # Max memory per OCPU
+            )
+        else:
+            # Handle the case where shape_info is None due to resource constraints (HARDWARE_NOT_SUPPORTED or Tenancy limit)
+            user_shape_ocpus = 1
+            user_shape_memory = 1
 
     # Configuration of all other compute shapes
     else:
@@ -245,9 +262,12 @@ def process_region(region, config, signer, compartment_id, user_shape_name, user
 
     # Fetch shapes and availabitity domains
     availability_domains, shapes_in_region = fetch_shapes_and_domains(core_client, identity_client, config['tenancy'])
-    
-    # Retrieve shape configuration
-    shape_ocpus, shape_memory, shape_is_flex, shape_info = get_shape_config(user_shape_name, shapes_in_region, user_shape_ocpus, user_shape_memory)
+
+    try:
+        # Retrieve shape configuration
+        shape_ocpus, shape_memory, shape_is_flex, shape_info = get_shape_config(user_shape_name, shapes_in_region, user_shape_ocpus, user_shape_memory)
+    except Exception as e:
+        print_error(e.message)
 
     # Process each availability domain and fault domain
     for availability_domain in availability_domains:

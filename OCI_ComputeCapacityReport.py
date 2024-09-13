@@ -13,7 +13,7 @@
 # any warranty or official endorsement from Oracle
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-version = '3.0.0'
+version = '3.0.2'
 
 import oci
 import os.path
