@@ -1,5 +1,8 @@
 # Changelog
 
+Version 3.0.3
+- add 'available_count' value for DRCC customers and whitelisted tenancies
+
 Version 3.0.2
 - Handles specific use case exceptions with flexible shapes 
 - Increases region connectivity timeout and improves exceptions

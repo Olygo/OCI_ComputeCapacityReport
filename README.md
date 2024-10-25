@@ -1,7 +1,5 @@
 # OCI_ComputeCapacityReport
 
-**version: 3.0.2**
-
 **Check the Availability of Any Compute Shape Across OCI Regions !**
 
 Easily find out which regions offer the latest compute shapes, such as VM.Standard.E5.Flex.
@@ -13,6 +11,9 @@ Output meanings are:
 - **AVAILABLE** => The capacity for the specified shape is currently available.
 - **HARDWARE_NOT_SUPPORTED** => The necessary hardware has not yet been deployed in this region.
 - **OUT_OF_HOST_CAPACITY** => Additional hardware is currently being deployed in this region
+
+**version: 3.0.3**
+- DRCC customers and whitelisted tenancies can now display 'available_count' value using '-drcc' argument
 
 ## Quick Start
 
@@ -89,6 +90,7 @@ Similarly, it enforces both the minimum and maximum limits for oCPUs and memory 
 | -shape        | shape_name           | Compute shape name you want to analyze                                                             | 
 | -ocpus        | integer              | Specify a particular amount of oCPU                                                                | 
 | -memory       | integer              | Specify a particular amount of memory                                                              | 
+| -drcc         |                      | Display 'available_count' value for DRCC customers and whitelisted tenancies                       | 
 
 ## Examples of Usage
 ##### Default :

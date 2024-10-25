@@ -4,7 +4,7 @@
 # name: OCI_ComputeCapacityReport.py
 #
 # Author: Florian Bonneville
-# Version: 3.0.0 - September 10, 2024
+# Version: 3.0.3 - October 25, 2024
 #
 # Disclaimer: 
 # This script is an independent tool developed by 
@@ -13,7 +13,7 @@
 # any warranty or official endorsement from Oracle
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-version = '3.0.2'
+version = '3.0.3'
 
 import oci
 import os.path
@@ -60,7 +60,10 @@ def parse_arguments():
     
     parser.add_argument('-memory', type=int, dest='memory',
                         help='Indicate a specific memory amount')
-    
+
+    parser.add_argument('-drcc', action='store_true',default=False, dest='drcc',
+                        help='Print "available_count" value for DRCC customers and whitelisted tenancies')
+
     return parser.parse_args()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -175,12 +178,18 @@ def main(regions_validated, config, signer, user_compartment, user_shape_name, u
         user_shape_ocpus = set_user_shape_ocpus(user_shape_name) if not args.ocpus else args.ocpus
         user_shape_memory = set_user_shape_memory(user_shape_name) if not args.memory else args.memory
 
-    # Print header
-    print(f"\n{'REGION':<20} {'AVAILABILITY_DOMAIN':<30} {'FAULT_DOMAIN':<20} {'SHAPE':<25} {'OCPU':10} {'MEMORY':<10} {'AVAILABILITY'}\n")
+    # Print header with or without available_count
+    header = f"\n{'REGION':<20} {'AVAILABILITY_DOMAIN':<30} {'FAULT_DOMAIN':<20} {'SHAPE':<25} {'OCPU':<10} {'MEMORY':<10}"
+    if args.drcc:
+        header += f" {'AVAILABLE_COUNT':<16}"
+    header += f" {'AVAILABILITY'}\n"
+
+    # Print the header
+    print(header)
 
     for region in regions_validated:
             config['region']=region.region_name
-            process_region(region, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory)
+            process_region(region, config, signer, user_compartment, user_shape_name, user_shape_ocpus, user_shape_memory, args.drcc)
 
 # Start a loop to keep the script running until the user decides to quit
 while True:
@@ -192,7 +201,7 @@ while True:
             user_compartment, 
             user_shape_name, 
             user_shape_ocpus, 
-            user_shape_memory, 
+            user_shape_memory
         )
         # Reset user shape parameters for the next iteration
         user_shape_ocpus = user_shape_memory = user_shape_name = 0

@@ -10,7 +10,7 @@ from modules.utils import clear, green, yellow, red, print_error, print_info
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 custom_retry_strategy = oci.retry.RetryStrategyBuilder(
                             max_attempts_check=True,
-                            max_attempts=3,
+                            max_attempts=5,
                             total_elapsed_time_check=True,
                             total_elapsed_time_seconds=10,
                             retry_max_wait_between_calls_seconds=5,

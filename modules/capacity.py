@@ -249,7 +249,7 @@ def get_shape_config(user_shape_name, shapes_in_region, user_shape_ocpus, user_s
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Process region by fetching data and creating report
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def process_region(region, config, signer, compartment_id, user_shape_name, user_shape_ocpus, user_shape_memory):
+def process_region(region, config, signer, compartment_id, user_shape_name, user_shape_ocpus, user_shape_memory, drcc):
 
     """
     Processes the specified region by fetching and configuring compute shape data, 
@@ -283,6 +283,7 @@ def process_region(region, config, signer, compartment_id, user_shape_name, user
                 compartment_id,
                 shape_info,
                 user_shape_name,
+                drcc,
                 shape_ocpus,
                 shape_memory,
                 shape_is_flex
@@ -291,7 +292,7 @@ def process_region(region, config, signer, compartment_id, user_shape_name, user
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Create OCI compute shape report
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def create_and_print_report(region, identity_client, core_client, availability_domain, fault_domain, compartment_id, shape_info, shape_name, shape_ocpus=None, shape_memory=None, shape_is_flex=False):
+def create_and_print_report(region, identity_client, core_client, availability_domain, fault_domain, compartment_id, shape_info, shape_name, drcc, shape_ocpus=None, shape_memory=None, shape_is_flex=False):
 
     """
     Creates a compute capacity report for a specific region and shape, and prints the results.
@@ -375,7 +376,14 @@ def create_and_print_report(region, identity_client, core_client, availability_d
 
         # Step 3: Print capacity results
         for result in report.data.shape_availabilities:
-            print(f"{region:<20} {availability_domain:<30} {fault_domain:<20} {shape_name:<25} {shape_ocpus:<10} {shape_memory:<10} {result.availability_status}")
+            available_count = f"{result.available_count:^16}" if result.available_count else f"{'-':^16}"
+    
+            if drcc:
+                print(f"{region:<20} {availability_domain:<30} {fault_domain:<20} {shape_name:<25} "
+                      f"{shape_ocpus:<10} {shape_memory:<10} {available_count} {result.availability_status}")
+            else:
+                print(f"{region:<20} {availability_domain:<30} {fault_domain:<20} {shape_name:<25} "
+                      f"{shape_ocpus:<10} {shape_memory:<10} {result.availability_status}")
 
     except oci.exceptions.ServiceError as e:
         if "Authorization failed" in e.message:
