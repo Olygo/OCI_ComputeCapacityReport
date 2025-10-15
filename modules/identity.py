@@ -2,6 +2,9 @@
 
 import oci
 import os
+import base64
+import json
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from modules.utils import clear, green, yellow, red, print_error, print_info
 
@@ -35,19 +38,26 @@ def retry_auth():
         config_file_path=input(yellow("What is the path of your OCI config file: ")).strip()
         print()
         config_profile=input(yellow("What is the profile section name to use in this config file: ")).strip()
-        config, signer, tenancy_name, auth_name, details =init_authentication('cf', config_file_path, config_profile)
 
-        if config:
-            return config, signer, tenancy_name, auth_name, details
-        else:
-            raise SystemExit("Retrying config_file authentication failed. Please check your file and relaunch the process.")
+        # Try security token first, then fall back to config file
+        for auth_type in ['st', 'cf']:
+            try:
+                config, signer, tenancy_name, auth_name, details = init_authentication(
+                    auth_type, config_file_path, config_profile
+                )
+                if config:
+                    return config, signer, tenancy_name, auth_name, details
+            except:
+                continue
+
+        raise SystemExit("Retrying authentication failed. Please check your file and relaunch the process.")
     else:
         raise SystemExit("\nAll authentication methods have failed...\n")
 
-def init_authentication(user_auth, config_file_path, config_profile):
-
+def init_authentication(user_auth, config_file_path, config_profile, tenancy_override=None):
     """
     Initializes authentication based on user preference or tries multiple methods.
+    If tenancy_override is provided, it replaces the tenancy OCID from config or signer.
     """
     authentication_errors = {}
 
@@ -55,6 +65,7 @@ def init_authentication(user_auth, config_file_path, config_profile):
     auth_methods = {
         'cs': (authenticate_cloud_shell, []),
         'cf': (authenticate_config_file, [config_file_path, config_profile]),
+        'st': (authenticate_security_token, [config_file_path, config_profile]),
         'ip': (authenticate_instance_principals, [])
     }
 
@@ -66,6 +77,18 @@ def init_authentication(user_auth, config_file_path, config_profile):
         config, signer, tenancy_name, auth_name, details = auth_method(authentication_errors, *args)
 
         if config:
+            # Tenancy override logic
+            if tenancy_override and tenancy_override.startswith("ocid1.tenancy."):
+                print(yellow(f" => Using overridden tenancy: {tenancy_override}"))
+                config['tenancy'] = tenancy_override
+
+                # Refresh tenancy object for validation
+                try:
+                    identity = oci.identity.IdentityClient(config=config, signer=signer)
+                    tenancy_name = identity.get_tenancy(config['tenancy']).data
+                except Exception as e:
+                    print(red(f"Error validating overridden tenancy: {e}"))
+                    raise SystemExit(1)
             return config, signer, tenancy_name, auth_name, details
 
     # If all methods fail, print the errors and exit
@@ -74,12 +97,43 @@ def init_authentication(user_auth, config_file_path, config_profile):
     for auth, error in authentication_errors.items():
         print_error(auth, error)
         print()
-    
+
     config, signer, tenancy_name, auth_name, details= retry_auth()
     if config:
+        if tenancy_override and tenancy_override.startswith("ocid1.tenancy."):
+            print(yellow(f" => Using overridden tenancy: {tenancy_override}"))
+            config['tenancy'] = tenancy_override
         return config, signer, tenancy_name, auth_name, details
     else:
         raise SystemExit(1)
+
+def _validate_security_token(config, token_file):
+    """
+    Helper function to validate security token expiration.
+    Returns True if token is valid and not expired.
+    """
+    try:
+        # Read security token
+        with open(token_file, "r") as f:
+            security_token = f.read().strip()
+
+        # Extract and decode JWT payload
+        try:
+            payload = security_token.split('.')[1]
+            # Pad payload for base64 decoding
+            payload += "=" * ((4 - len(payload) % 4) % 4)
+            decoded_payload = base64.urlsafe_b64decode(payload)
+            payload_data = json.loads(decoded_payload)
+            exp_time = int(payload_data.get("exp", 0))
+        except (IndexError, json.JSONDecodeError, ValueError, base64.binascii.Error):
+            return False
+
+        # Check if token is expired
+        current_time = int(time.time())
+        return current_time < exp_time
+
+    except Exception:
+        return False
 
 def authenticate_cloud_shell(authentication_errors):
 
@@ -184,6 +238,52 @@ def authenticate_instance_principals(authentication_errors):
 
     except Exception as e:
         authentication_errors['Instance_Principals_authentication'] = str(e).replace("\n", "")
+        return None, None, None, None, None
+
+def authenticate_security_token(authentication_errors, config_file_path, config_profile):
+    """
+    Attempts to authenticate using OCI security token from config file.
+    Validates token expiration and creates SecurityTokenSigner.
+    """
+    try:
+        print(yellow(f"\r => Trying Security Token authentication..."), end=' ' * 50 + '\r', flush=True)
+
+        # Load OCI configuration from file
+        config = oci.config.from_file(file_location=config_file_path, profile_name=config_profile)
+
+        # Validate the loaded configuration
+        oci.config.validate_config(config)
+
+        # Check for security_token_file in config
+        token_file = config.get("security_token_file")
+        if not token_file:
+            raise ValueError("security_token_file not found in config")
+
+        # Validate security token (check expiration)
+        if not _validate_security_token(config, token_file):
+            raise ValueError("Security token is invalid or expired")
+
+        # Read the security token from file
+        try:
+            with open(token_file, "r") as f:
+                token = f.read().strip()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Security token file not found: {token_file}")
+        except Exception as e:
+            raise Exception(f"Error reading security token file: {e}")
+
+        # Load private key and create SecurityTokenSigner
+        private_key = oci.signer.load_private_key_from_file(config["key_file"])
+        signer = oci.auth.signers.SecurityTokenSigner(token, private_key)
+
+        # Validate by trying to get the tenancy_name
+        identity = oci.identity.IdentityClient(config=config, signer=signer)
+        tenancy = identity.get_tenancy(config['tenancy']).data
+
+        return config, signer, tenancy, 'security_token', token_file
+
+    except Exception as e:
+        authentication_errors['Security_Token_authentication'] = str(e).replace("\n", "")
         return None, None, None, None, None
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -

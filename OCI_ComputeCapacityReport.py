@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # coding: utf-8
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -35,13 +36,16 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-auth', default='', dest='user_auth',
-                         help='Force an authentication method : cs (cloudshell), cf (config file), ip (instance principals')
+                         help='Force an authentication method : cs (cloudshell), cf (config file), st (security token), ip (instance principals)')
     
     parser.add_argument('-config_file', default='~/.oci/config', dest='config_file_path',
                         help='Path to your OCI config file, default: ~/.oci/config')
     
     parser.add_argument('-profile', default='DEFAULT', dest='config_profile',
                         help='Config file section to use, default: DEFAULT')
+
+    parser.add_argument('-tenancy', dest='config_tenancy',
+                        help='Override the tenancy OCID found in the config file or signer')
 
     parser.add_argument('-su', action='store_true',default=False, dest='su',
                         help='Notify the script that you have tenancy-level admin rights to prevent prompting.')
@@ -77,7 +81,8 @@ args=parse_arguments()
 config, signer, tenancy, auth_name, details = init_authentication(
      args.user_auth, 
      args.config_file_path, 
-     args.config_profile
+     args.config_profile,
+     args.config_tenancy
      )
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
