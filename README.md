@@ -165,7 +165,7 @@ DenseIO Flex shapes use predefined CPU/RAM/NVMe combinations, filtered against O
 
 ![DenseIO](.images/02.png)
 
-**For DRCC/ALOY/C3 customers and whitelisted tenancies,** `-drcc` also displays the API's `available_count`. The script retains its existing `-` display for a zero value, access to capacity quantities depends on OCI support for the tenancy.
+**For Dedicated Region/ALLOY/C3 customers and whitelisted tenancies,** `-drcc` also displays the API's `available_count`. The script retains its existing `-` display for a zero value, access to capacity quantities depends on OCI support for the tenancy.
 
 ![AVAILABLE_COUNT](.images/03.png)
 
