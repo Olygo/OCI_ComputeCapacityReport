@@ -20,9 +20,6 @@ import oci
 import argparse
 import os.path
 from modules.terminal import configure_terminal, status_message
-
-import oci
-
 from modules.utils import green, red, clear, print_info
 from modules.exceptions import RestartFlowException, HomeNavigation
 from modules.identity import (
