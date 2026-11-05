@@ -1,0 +1,5929 @@
+{
+  "catalog_version": "2026-11-02T08:29:33.074990Z",
+  "shapes": {
+    "BM.DenseIO.A4.Ax.72": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.DenseIO.A4.Ax.72",
+      "processor_description": "AmpereOne-M",
+      "ocpus": 72.0,
+      "memory_in_gbs": 1152.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 200,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 4,
+      "local_disks_total_size_in_gbs": 27200.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": null,
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-a4-ax-memory-count",
+        "dense-a4-ax-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_NVME_A4-2C_S.02"
+      ]
+    },
+    "BM.DenseIO.E4.128": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.DenseIO.E4.128",
+      "processor_description": "2.55 GHz AMD EPYC™ 7J13 (Milan)",
+      "ocpus": 128.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 8,
+      "local_disks_total_size_in_gbs": 54400.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "AMD_MILAN_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e4-core-count",
+        "dense-io-e4-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "NVME_Comp_E4-2C_Server.01"
+      ]
+    },
+    "BM.DenseIO.E5.128": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.DenseIO.E5.128",
+      "processor_description": "2.3 GHz AMD EPYC™ 9J14 (Genoa)",
+      "ocpus": 128.0,
+      "memory_in_gbs": 1536.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 512,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 12,
+      "local_disks_total_size_in_gbs": 81600.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e5-memory-count",
+        "dense-io-e5-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_NVME_E5-2C_S.03"
+      ]
+    },
+    "BM.DenseIO.E6.Ax.192": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.DenseIO.E6.Ax.192",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 192.0,
+      "memory_in_gbs": 2304.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 400,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 12,
+      "local_disks_total_size_in_gbs": 81600.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e6-ax-memory-count",
+        "dense-io-e6-ax-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_NVME_E6-2C_22000_S.02"
+      ]
+    },
+    "BM.DenseIO2.52": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.DenseIO2.52",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 52.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 52,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 8,
+      "local_disks_total_size_in_gbs": 51200.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_SKYLAKE_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "NVMe_Compute_X7-2L_Aura8.01"
+      ]
+    },
+    "BM.GPU.A10.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU.A10.4",
+      "processor_description": "2.6 GHz Intel® Xeon® Platinum 8358 (Ice Lake)",
+      "ocpus": 64.0,
+      "memory_in_gbs": 1024.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 4,
+      "gpu_description": "NVIDIA® A10",
+      "local_disks": 2,
+      "local_disks_total_size_in_gbs": 7680.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu-a10-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "GPU_T2_X9-2C_Server.01"
+      ]
+    },
+    "BM.GPU.B4.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU.B4.8",
+      "processor_description": "2.55 GHz AMD EPYC™ 7J13 (Milan)",
+      "ocpus": 128.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 8,
+      "gpu_description": "NVIDIA® A100",
+      "local_disks": 4,
+      "local_disks_total_size_in_gbs": 27200.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 16,
+      "rdma_bandwidth_in_gbps": 100,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "AMD_MILAN_BM_GPU",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS4"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu-b4-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "GPU_V3_E4-2C_Server.01"
+      ]
+    },
+    "BM.GPU.H100.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU.H100.8",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8480 (Sapphire Rapids)",
+      "ocpus": 112.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 512,
+      "gpus": 8,
+      "gpu_description": "NVIDIA® H100",
+      "local_disks": 16,
+      "local_disks_total_size_in_gbs": 61440.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 16,
+      "rdma_bandwidth_in_gbps": 200,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu-h100-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "GPU_V4_X10-2C_RS_S.01"
+      ]
+    },
+    "BM.GPU2.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU2.2",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 28.0,
+      "memory_in_gbs": 256.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 28,
+      "gpus": 2,
+      "gpu_description": "NVIDIA® Tesla® P100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu2-count",
+        "default-shape"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": [
+        {
+          "shape_name": "BM.GPU3.8"
+        },
+        {
+          "shape_name": "BM.GPU4.8"
+        }
+      ],
+      "platform_names": [
+        "GPU_X7-2C_Module.02"
+      ]
+    },
+    "BM.GPU3.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU3.8",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 52.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 52,
+      "gpus": 8,
+      "gpu_description": "NVIDIA® Tesla® V100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "default-shape",
+        "gpu3-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "GPU_V2_X7-2C_Module.02"
+      ]
+    },
+    "BM.GPU4.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.GPU4.8",
+      "processor_description": "2.9 GHz AMD EPYC™ 7542 (Rome)",
+      "ocpus": 64.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 64,
+      "gpus": 8,
+      "gpu_description": "NVIDIA® A100",
+      "local_disks": 4,
+      "local_disks_total_size_in_gbs": 27200.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 16,
+      "rdma_bandwidth_in_gbps": 100,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "AMD_ROME_BM_GPU",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": null,
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS4"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu4-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "GPU_V3_E2-2C_Server.01"
+      ]
+    },
+    "BM.HPC.E5.144": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.HPC.E5.144",
+      "processor_description": "2.3 GHz AMD EPYC™ 9J14 (Genoa)",
+      "ocpus": 144.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 128,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 3840.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 1,
+      "rdma_bandwidth_in_gbps": 100,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": null,
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS4"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "hpc-e5-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_OPT96C_E5-2C_S.01"
+      ]
+    },
+    "BM.HPC2.36": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.HPC2.36",
+      "processor_description": "3.0 GHz Intel® Xeon® Gold 6154 (Skylake)",
+      "ocpus": 36.0,
+      "memory_in_gbs": 384.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 25.0,
+      "max_vnic_attachments": 50,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 6400.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 1,
+      "rdma_bandwidth_in_gbps": 100,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "hpc2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "HPC_X7-2C_Module.03"
+      ]
+    },
+    "BM.Optimized3.36": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Optimized3.36",
+      "processor_description": "3.0 GHz Intel® Xeon® Gold 6354 (Ice Lake)",
+      "ocpus": 36.0,
+      "memory_in_gbs": 512.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 3840.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 1,
+      "rdma_bandwidth_in_gbps": 100,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_ICELAKE_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "optimized3-core-count",
+        "optimized3-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Optimized_Comp_X9-2C_Server.01"
+      ]
+    },
+    "BM.Standard.A1.160": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.A1.160",
+      "processor_description": "3.0 GHz Ampere® Altra™",
+      "ocpus": 160.0,
+      "memory_in_gbs": 1024.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": null,
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a1-memory-count",
+        "standard-a1-memory-regional-count",
+        "standard-a1-core-count",
+        "standard-a1-core-regional-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Reg_Comp_A1-2C_Server.01"
+      ]
+    },
+    "BM.Standard.A4.48": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.A4.48",
+      "processor_description": "3.6 GHz Ampere® AmpereOne-M™ (Banshee 12™)",
+      "ocpus": 48.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 3840.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": null,
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a4-core-count",
+        "standard-a4-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_PERF_A4-2C_S.01"
+      ]
+    },
+    "BM.Standard.A4.Ax.48": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.A4.Ax.48",
+      "processor_description": "AmpereOne-M",
+      "ocpus": 48.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 200,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 3840.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": null,
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a4-ax-memory-count",
+        "standard-a4-ax-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_STD_A4-2C_S.01"
+      ]
+    },
+    "BM.Standard.B1.44": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.B1.44",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 44.0,
+      "memory_in_gbs": 512.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 25.0,
+      "max_vnic_attachments": 44,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": [
+        {
+          "shape_name": "BM.Standard2.52"
+        },
+        {
+          "shape_name": "BM.Standard3.64"
+        }
+      ],
+      "platform_names": [
+        "Regular_Compute_X6-2.02"
+      ]
+    },
+    "BM.Standard.E2.64": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E2.64",
+      "processor_description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+      "ocpus": 64.0,
+      "memory_in_gbs": 512.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 150,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": [
+        {
+          "shape_name": "BM.Standard2.52"
+        },
+        {
+          "shape_name": "BM.Standard.E3.128"
+        }
+      ],
+      "platform_names": [
+        "AMD_Reg_Compute_E1-2C_Module.02"
+      ]
+    },
+    "BM.Standard.E3.128": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E3.128",
+      "processor_description": "2.25 GHz AMD EPYC™ 7742 (Rome)",
+      "ocpus": 128.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "AMD_ROME_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e3-core-ad-count",
+        "standard-e3-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Reg_Comp_E2-2C_Server.01"
+      ]
+    },
+    "BM.Standard.E4.128": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E4.128",
+      "processor_description": "2.55 GHz AMD EPYC™ 7J13 (Milan)",
+      "ocpus": 128.0,
+      "memory_in_gbs": 2048.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "AMD_MILAN_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e4-core-count",
+        "standard-e4-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Reg_Comp_E4_2c_Server_Ortano.01"
+      ]
+    },
+    "BM.Standard.E5.192": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E5.192",
+      "processor_description": "2.3 GHz AMD EPYC™ 9J14 (Genoa)",
+      "ocpus": 192.0,
+      "memory_in_gbs": 2304.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 512,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e5-core-count",
+        "standard-e5-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_STD_E5-2C_S.02"
+      ]
+    },
+    "BM.Standard.E6.256": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E6.256",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 256.0,
+      "memory_in_gbs": 3072.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 400,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 2,
+      "local_disks_total_size_in_gbs": 1920.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e6-core-count",
+        "standard-e6-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_STD_E6-2C_S.02"
+      ]
+    },
+    "BM.Standard.E6.Ax.192": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard.E6.Ax.192",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 192.0,
+      "memory_in_gbs": 1536.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 200.0,
+      "max_vnic_attachments": 400,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 2,
+      "local_disks_total_size_in_gbs": 1920.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS0",
+            "NPS1",
+            "NPS2",
+            "NPS4"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "virtual_instructions_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e6-ax-core-count",
+        "standard-e6-ax-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_STD_E6-2C_22000_S.01"
+      ]
+    },
+    "BM.Standard1.36": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard1.36",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 36.0,
+      "memory_in_gbs": 256.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 10.0,
+      "max_vnic_attachments": 100,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": [
+        {
+          "shape_name": "BM.Standard2.52"
+        },
+        {
+          "shape_name": "BM.Standard3.64"
+        }
+      ],
+      "platform_names": [
+        "X5ComputeRegular"
+      ]
+    },
+    "BM.Standard2.52": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard2.52",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 52.0,
+      "memory_in_gbs": 768.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 50.0,
+      "max_vnic_attachments": 200,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_SKYLAKE_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Regular_Compute_X7-2C_Module.01"
+      ]
+    },
+    "BM.Standard3.64": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard3.64",
+      "processor_description": "2.6 GHz Intel® Xeon® Platinum 8358 (Ice Lake)",
+      "ocpus": 64.0,
+      "memory_in_gbs": 1024.0,
+      "network_ports": 2,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 256,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_ICELAKE_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2"
+          ],
+          "default_value": "NPS1"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "percentage_of_cores_enabled_options": {
+          "min": 1,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard3-memory-count",
+        "standard3-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "Reg_Comp_X9-2C_Server.01"
+      ]
+    },
+    "BM.Standard4.Ax.120": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "BM.Standard4.Ax.120",
+      "processor_description": "2.2 GHz Base 3.9 GHz Turbo Intel® Xeon® Platinum 6987C-P (Granite Rapids)",
+      "ocpus": 120.0,
+      "memory_in_gbs": 1152.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 100.0,
+      "max_vnic_attachments": 200,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "GENERIC_BM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": null,
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": {
+          "service_allowed_values": [
+            "NPS1",
+            "NPS2",
+            "NPS6"
+          ],
+          "default_value": "NPS2"
+        },
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": {
+          "min": 25,
+          "max": 100,
+          "default_value": 100
+        }
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-x12-ax-core-count",
+        "standard-x12-ax-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": [
+        "COM_STD_X12-2C_S.03"
+      ]
+    },
+    "VM.DenseIO.E4.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO.E4.Flex",
+      "processor_description": "2.55 GHz AMD EPYC™ 7J13 (Milan)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 6800.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 64.0,
+        "max_per_numa_node": 64.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 1024.0,
+        "default_per_ocpu_in_g_bs": 16.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 1024.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 49.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": null,
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e4-core-count",
+        "dense-io-e4-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.DenseIO.E5.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO.E5.Flex",
+      "processor_description": "2.3 GHz AMD EPYC™ 9J14 (Genoa)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 6800.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 48.0,
+        "max_per_numa_node": 48.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 576.0,
+        "default_per_ocpu_in_g_bs": 16.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 48.0,
+        "max_per_numa_node_in_gbs": 576.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 48.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": null,
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e5-memory-count",
+        "dense-io-e5-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.DenseIO.E6.Ax.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO.E6.Ax.Flex",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 12.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 6800.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 48.0,
+        "max_per_numa_node": 48.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 576.0,
+        "default_per_ocpu_in_g_bs": 12.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 576.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 48.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": null,
+        "measured_boot_options": null,
+        "trusted_platform_module_options": null,
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 32
+      },
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io-e6-ax-memory-count",
+        "dense-io-e6-ax-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.DenseIO2.16": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO2.16",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 16.0,
+      "memory_in_gbs": 240.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 16.4,
+      "max_vnic_attachments": 16,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 2,
+      "local_disks_total_size_in_gbs": 12800.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.DenseIO2.24": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO2.24",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 24.0,
+      "memory_in_gbs": 320.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 24.6,
+      "max_vnic_attachments": 24,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 4,
+      "local_disks_total_size_in_gbs": 25600.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.DenseIO2.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.DenseIO2.8",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 8.0,
+      "memory_in_gbs": 120.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 8.2,
+      "max_vnic_attachments": 8,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 1,
+      "local_disks_total_size_in_gbs": 6400.0,
+      "local_disk_description": "NVMe SSD Storage",
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "dense-io2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.GPU.A10.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU.A10.1",
+      "processor_description": "2.6 GHz Intel® Xeon® Platinum 8358 (Ice Lake)",
+      "ocpus": 15.0,
+      "memory_in_gbs": 240.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 24.0,
+      "max_vnic_attachments": 15,
+      "gpus": 1,
+      "gpu_description": "NVIDIA® A10",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu-a10-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.GPU3.1",
+        "VM.GPU3.2",
+        "VM.GPU3.4",
+        "VM.GPU.A10.1",
+        "VM.GPU.A10.2"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.GPU.A10.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU.A10.2",
+      "processor_description": "2.6 GHz Intel® Xeon® Platinum 8358 (Ice Lake)",
+      "ocpus": 30.0,
+      "memory_in_gbs": 480.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 48.0,
+      "max_vnic_attachments": 24,
+      "gpus": 2,
+      "gpu_description": "NVIDIA® A10",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu-a10-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.GPU3.1",
+        "VM.GPU3.2",
+        "VM.GPU3.4",
+        "VM.GPU.A10.1",
+        "VM.GPU.A10.2"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.GPU2.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU2.1",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 12.0,
+      "memory_in_gbs": 72.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 8.0,
+      "max_vnic_attachments": 12,
+      "gpus": 1,
+      "gpu_description": "NVIDIA® Tesla® P100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "gpu2-count",
+        "default-shape"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": null,
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.GPU3.1"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.GPU3.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU3.1",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 6.0,
+      "memory_in_gbs": 90.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 4.0,
+      "max_vnic_attachments": 6,
+      "gpus": 1,
+      "gpu_description": "NVIDIA® Tesla® V100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "default-shape",
+        "gpu3-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.GPU3.1",
+        "VM.GPU3.2",
+        "VM.GPU3.4",
+        "VM.GPU.A10.1",
+        "VM.GPU.A10.2"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.GPU3.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU3.2",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 12.0,
+      "memory_in_gbs": 180.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 8.0,
+      "max_vnic_attachments": 12,
+      "gpus": 2,
+      "gpu_description": "NVIDIA® Tesla® V100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "default-shape",
+        "gpu3-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.GPU3.1",
+        "VM.GPU3.2",
+        "VM.GPU3.4",
+        "VM.GPU.A10.1",
+        "VM.GPU.A10.2"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.GPU3.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.GPU3.4",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 24.0,
+      "memory_in_gbs": 360.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 24.6,
+      "max_vnic_attachments": 24,
+      "gpus": 4,
+      "gpu_description": "NVIDIA® Tesla® V100",
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": false,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": true,
+      "billing_type": "PAID",
+      "quota_names": [
+        "default-shape",
+        "gpu3-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.GPU3.1",
+        "VM.GPU3.2",
+        "VM.GPU3.4",
+        "VM.GPU.A10.1",
+        "VM.GPU.A10.2"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Optimized3.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Optimized3.Flex",
+      "processor_description": "3.0 GHz Intel® Xeon® Gold 6354 (Ice Lake)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 14.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 4.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 18.0,
+        "max_per_numa_node": 18.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 256.0,
+        "default_per_ocpu_in_g_bs": 14.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 256.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 4.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 4.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 2.0
+      },
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "optimized3-core-count",
+        "optimized3-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.A1.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.A1.Flex",
+      "processor_description": "3.0 GHz Ampere® Altra™",
+      "ocpus": 1.0,
+      "memory_in_gbs": 6.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 80.0,
+        "max_per_numa_node": 80.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 512.0,
+        "default_per_ocpu_in_g_bs": 6.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 512.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "LIMITED_FREE",
+      "quota_names": [
+        "standard-a1-memory-count",
+        "standard-a1-memory-regional-count",
+        "standard-a1-core-count",
+        "standard-a1-core-regional-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard.A1.Flex",
+        "VM.Standard.A2.Flex",
+        "VM.Standard.A4.Flex",
+        "VM.Standard.A4.Ax.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.A2.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.A2.Flex",
+      "processor_description": "3.0 GHz Ampere® AmpereOne™ (Siryn™)",
+      "ocpus": 0.5,
+      "memory_in_gbs": 6.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 78.0,
+        "max_per_numa_node": 78.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 946.0,
+        "default_per_ocpu_in_g_bs": 6.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 946.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 78.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a2-core-regional-count",
+        "standard-a2-core-count",
+        "standard-a2-memory-regional-count",
+        "standard-a2-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard.A2.Flex",
+        "VM.Standard.A1.Flex",
+        "VM.Standard.A4.Flex",
+        "VM.Standard.A4.Ax.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.A4.Ax.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.A4.Ax.Flex",
+      "processor_description": "AmpereOne-M",
+      "ocpus": 0.5,
+      "memory_in_gbs": 7.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": 0.0,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 45.0,
+        "max_per_numa_node": 45.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 700.0,
+        "default_per_ocpu_in_g_bs": 7.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 700.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 0.5,
+        "max_in_gbps": 99.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a4-ax-memory-count",
+        "standard-a4-ax-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard.A4.Ax.Flex",
+        "VM.Standard.A4.Flex",
+        "VM.Standard.A2.Flex",
+        "VM.Standard.A1.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.A4.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.A4.Flex",
+      "processor_description": "3.6 GHz Ampere® AmpereOne-M™ (Banshee 12™)",
+      "ocpus": 0.5,
+      "memory_in_gbs": 7.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": 0.0,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 45.0,
+        "max_per_numa_node": 45.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 700.0,
+        "default_per_ocpu_in_g_bs": 7.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 700.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 0.5,
+        "max_in_gbps": 99.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-a4-core-count",
+        "standard-a4-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard.A4.Flex",
+        "VM.Standard.A2.Flex",
+        "VM.Standard.A4.Ax.Flex",
+        "VM.Standard.A1.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.B1.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.B1.1",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 12.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 0.6,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.1"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.B1.16": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.B1.16",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 16.0,
+      "memory_in_gbs": 192.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 9.6,
+      "max_vnic_attachments": 16,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.16"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.B1.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.B1.2",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 2.0,
+      "memory_in_gbs": 24.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.2,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.2"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.B1.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.B1.4",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 4.0,
+      "memory_in_gbs": 48.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 2.4,
+      "max_vnic_attachments": 4,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.4"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.B1.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.B1.8",
+      "processor_description": "2.2 GHz Intel® Xeon® E5-2669 v4 (Broadwell)",
+      "ocpus": 8.0,
+      "memory_in_gbs": 96.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 4.8,
+      "max_vnic_attachments": 8,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-b1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.8"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.E2.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E2.1",
+      "processor_description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 8.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 0.7,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.1"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.E2.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E2.2",
+      "processor_description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+      "ocpus": 2.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.4,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.2"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.E2.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E2.4",
+      "processor_description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+      "ocpus": 4.0,
+      "memory_in_gbs": 32.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 2.8,
+      "max_vnic_attachments": 4,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.4"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.E2.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E2.8",
+      "processor_description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+      "ocpus": 8.0,
+      "memory_in_gbs": 64.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 5.6,
+      "max_vnic_attachments": 8,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.8"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard.E3.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E3.Flex",
+      "processor_description": "2.25 GHz AMD EPYC™ 7742 (Rome)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 114.0,
+        "max_per_numa_node": 64.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 1776.0,
+        "default_per_ocpu_in_g_bs": 16.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 1024.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e3-core-ad-count",
+        "standard-e3-memory-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.E4.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E4.Flex",
+      "processor_description": "2.55 GHz AMD EPYC™ 7J13 (Milan)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 114.0,
+        "max_per_numa_node": 64.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 1760.0,
+        "default_per_ocpu_in_g_bs": 16.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 1024.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e4-core-count",
+        "standard-e4-memory-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.E5.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E5.Flex",
+      "processor_description": "2.3 GHz AMD EPYC™ 9J14 (Genoa)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 12.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 126.0,
+        "max_per_numa_node": 94.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 2098.0,
+        "default_per_ocpu_in_g_bs": 12.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 1049.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e5-core-count",
+        "standard-e5-memory-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC",
+        "DYNAMIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.E6.Ax.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E6.Ax.Flex",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 7.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 94.0,
+        "max_per_numa_node": 94.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 712.0,
+        "default_per_ocpu_in_g_bs": 7.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 712.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 99.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 32
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e6-ax-core-count",
+        "standard-e6-ax-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard.E6.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard.E6.Flex",
+      "processor_description": "2.7 GHz AMD EPYC™ 9J45 (Turin)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 11.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 126.0,
+        "max_per_numa_node": 126.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 1454.0,
+        "default_per_ocpu_in_g_bs": 11.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 1454.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 99.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "AMD_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-e6-core-count",
+        "standard-e6-memory-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC",
+        "DYNAMIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard1.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard1.1",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 7.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 0.6,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.1"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard1.16": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard1.16",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 16.0,
+      "memory_in_gbs": 112.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 4.8,
+      "max_vnic_attachments": 16,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.16"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard1.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard1.2",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 2.0,
+      "memory_in_gbs": 14.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.2,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.2"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard1.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard1.4",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 4.0,
+      "memory_in_gbs": 28.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.2,
+      "max_vnic_attachments": 4,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.4"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard1.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard1.8",
+      "processor_description": "2.3 GHz Intel® Xeon® E5-2699 v3 (Haswell)",
+      "ocpus": 8.0,
+      "memory_in_gbs": 56.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 2.4,
+      "max_vnic_attachments": 8,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": null,
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard1-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": [
+        {
+          "shape_name": "VM.Standard2.8"
+        },
+        {
+          "shape_name": "VM.Standard.E3.Flex"
+        }
+      ],
+      "platform_names": []
+    },
+    "VM.Standard2.1": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.1",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 15.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard2.16": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.16",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 16.0,
+      "memory_in_gbs": 240.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 16.4,
+      "max_vnic_attachments": 16,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard2.2": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.2",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 2.0,
+      "memory_in_gbs": 30.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 2.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard2.24": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.24",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 24.0,
+      "memory_in_gbs": 320.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 24.6,
+      "max_vnic_attachments": 24,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard2.4": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.4",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 4.0,
+      "memory_in_gbs": 60.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 4.1,
+      "max_vnic_attachments": 4,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard2.8": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard2.8",
+      "processor_description": "2.0 GHz Intel® Xeon® Platinum 8167M (Skylake)",
+      "ocpus": 8.0,
+      "memory_in_gbs": 120.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 8.2,
+      "max_vnic_attachments": 8,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": null,
+      "memory_options": null,
+      "networking_bandwidth_options": null,
+      "max_vnic_attachment_options": null,
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard2-core-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": false,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard3.Flex": {
+      "baseline_ocpu_utilizations": [
+        "BASELINE_1_8",
+        "BASELINE_1_2",
+        "BASELINE_1_1"
+      ],
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard3.Flex",
+      "processor_description": "2.6 GHz Intel® Xeon® Platinum 8358 (Ice Lake)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 16.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": null,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 56.0,
+        "max_per_numa_node": 32.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 896.0,
+        "default_per_ocpu_in_g_bs": 16.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 512.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 40.0,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": null,
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard3-memory-count",
+        "standard3-core-count"
+      ],
+      "is_subcore": true,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    },
+    "VM.Standard4.Ax.Flex": {
+      "baseline_ocpu_utilizations": null,
+      "min_total_baseline_ocpus_required": null,
+      "shape": "VM.Standard4.Ax.Flex",
+      "processor_description": "2.2 GHz Base 3.9 GHz Turbo Intel® Xeon® Platinum 6987C-P (Granite Rapids)",
+      "ocpus": 1.0,
+      "memory_in_gbs": 9.0,
+      "network_ports": 1,
+      "networking_bandwidth_in_gbps": 1.0,
+      "max_vnic_attachments": 2,
+      "gpus": 0,
+      "gpu_description": null,
+      "local_disks": 0,
+      "local_disks_total_size_in_gbs": 0.0,
+      "local_disk_description": null,
+      "rdma_ports": 0,
+      "rdma_bandwidth_in_gbps": 0,
+      "is_live_migration_supported": true,
+      "ocpu_options": {
+        "min": 1.0,
+        "max": 39.0,
+        "max_per_numa_node": 39.0
+      },
+      "memory_options": {
+        "min_in_g_bs": 1.0,
+        "max_in_g_bs": 360.0,
+        "default_per_ocpu_in_g_bs": 9.0,
+        "min_per_ocpu_in_gbs": 1.0,
+        "max_per_ocpu_in_gbs": 64.0,
+        "max_per_numa_node_in_gbs": 360.0
+      },
+      "networking_bandwidth_options": {
+        "min_in_gbps": 1.0,
+        "max_in_gbps": 99.6,
+        "default_per_ocpu_in_gbps": 1.0
+      },
+      "max_vnic_attachment_options": {
+        "min": 2,
+        "max": 24.0,
+        "default_per_ocpu": 1.0
+      },
+      "platform_config_options": {
+        "type": "INTEL_VM",
+        "secure_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "measured_boot_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "trusted_platform_module_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": false
+        },
+        "numa_nodes_per_socket_platform_options": null,
+        "memory_encryption_options": null,
+        "symmetric_multi_threading_options": {
+          "allowed_values": [
+            true,
+            false
+          ],
+          "is_default_enabled": true
+        },
+        "access_control_service_options": null,
+        "virtual_instructions_options": null,
+        "input_output_memory_management_unit_options": null,
+        "percentage_of_cores_enabled_options": null
+      },
+      "bs_nvme_attachments_config": {
+        "vf_enable_count": 0,
+        "min_cores": 1,
+        "max_remote_nvme_volume_attachments_per_core": 5,
+        "max_total_remote_nvme_volume_attachments": 33
+      },
+      "is_billed_for_stopped_instance": false,
+      "billing_type": "PAID",
+      "quota_names": [
+        "standard-x12-ax-core-count",
+        "standard-x12-ax-memory-count"
+      ],
+      "is_subcore": false,
+      "is_flexible": true,
+      "supported_resource_management": [
+        "STATIC"
+      ],
+      "resize_compatible_shapes": [
+        "VM.Standard1.1",
+        "VM.Standard1.2",
+        "VM.Standard1.4",
+        "VM.Standard1.8",
+        "VM.Standard1.16",
+        "VM.Standard.B1.1",
+        "VM.Standard.B1.2",
+        "VM.Standard.B1.4",
+        "VM.Standard.B1.8",
+        "VM.Standard.B1.16",
+        "VM.Standard.E2.1",
+        "VM.Standard.E2.2",
+        "VM.Standard.E2.4",
+        "VM.Standard.E2.8",
+        "VM.Standard2.1",
+        "VM.Standard2.2",
+        "VM.Standard2.4",
+        "VM.Standard2.8",
+        "VM.Standard2.16",
+        "VM.Standard2.24",
+        "VM.Standard.E3.Flex",
+        "VM.Standard.E4.Flex",
+        "VM.Standard.E5.Flex",
+        "VM.Optimized3.Flex",
+        "VM.Standard3.Flex",
+        "VM.Standard.E6.Flex"
+      ],
+      "recommended_alternatives": null,
+      "platform_names": []
+    }
+  }
+}

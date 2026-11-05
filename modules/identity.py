@@ -1,9 +1,14 @@
 # coding: utf-8
 
 import oci
+from contextlib import closing
 import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from modules.utils import clear, green, yellow, red, print_error, print_info
+from modules.navigation import read_choice, read_input, selection_indices
+from modules.terminal import status_line, clear_status, plain_text, temporary_status
+from modules.results import print_request_error, write_wrapped
+from modules.execution import build_retry_strategy, client_options, region_tasks, cancellable_call
+from modules.pager import PageBuffer, show_pages
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # set custom retry strategy
@@ -28,13 +33,13 @@ def retry_auth():
     It prompts the user to provide a config_file custom path and a config_profile section.
     """
     print(yellow("\n-- All authentication methods have failed -- \n"))
-    retry_cf=input(yellow("Do you want to specify another config file path ? [Y/N]")).strip().upper()
+    retry_cf=read_input("Do you want to specify another config file path ? [Y/N]: ").upper()
     print()
     
     if retry_cf in ("Y","YES"):
-        config_file_path=input(yellow("What is the path of your OCI config file: ")).strip()
+        config_file_path=read_input("What is the path of your OCI config file: ")
         print()
-        config_profile=input(yellow("What is the profile section name to use in this config file: ")).strip()
+        config_profile=read_input("What is the profile section name to use in this config file: ")
         config, signer, tenancy_name, auth_name, details =init_authentication('cf', config_file_path, config_profile)
 
         if config:
@@ -69,7 +74,7 @@ def init_authentication(user_auth, config_file_path, config_profile):
             return config, signer, tenancy_name, auth_name, details
 
     # If all methods fail, print the errors and exit
-    print("\r", end=' ' * 100 + '\r', flush=True)
+    clear_status()
     clear()
     for auth, error in authentication_errors.items():
         print_error(auth, error)
@@ -89,7 +94,7 @@ def authenticate_cloud_shell(authentication_errors):
     """
 
     try:
-        print(yellow("\r => Trying CloudShell authentication..."), end=' ' * 50 + '\r', flush=True)
+        status_line(' => Trying CloudShell authentication...')
 
         # Retrieve environment variables for OCI configuration
         env_config_file = os.environ.get('OCI_CONFIG_FILE')
@@ -117,8 +122,9 @@ def authenticate_cloud_shell(authentication_errors):
         signer = oci.auth.signers.InstancePrincipalsDelegationTokenSigner(delegation_token=delegation_token)
 
         # Validate the config by trying to get the tenancy_name
-        identity = oci.identity.IdentityClient(config=config, signer=signer)
-        tenancy = identity.get_tenancy(config['tenancy']).data
+        identity = oci.identity.IdentityClient(config=config, signer=signer, **client_options())
+        tenancy = cancellable_call(identity.get_tenancy, config['tenancy'],
+                                   retry_strategy=build_retry_strategy()).data
 
         return config, signer, tenancy, 'delegation_token', delegation_token_location
 
@@ -134,7 +140,7 @@ def authenticate_config_file(authentication_errors, config_file_path, config_pro
     """
 
     try:
-        print(yellow(f"\r => Trying Config File authentication..."), end=' ' * 50 + '\r', flush=True)
+        status_line(' => Trying Config File authentication...')
 
         # Load OCI configuration from file
         config = oci.config.from_file(file_location=config_file_path, profile_name=config_profile)
@@ -153,8 +159,9 @@ def authenticate_config_file(authentication_errors, config_file_path, config_pro
         )
 
         # Validate the config by trying to get the tenancy_name
-        identity = oci.identity.IdentityClient(config=config, signer=signer)
-        tenancy = identity.get_tenancy(config['tenancy']).data
+        identity = oci.identity.IdentityClient(config=config, signer=signer, **client_options())
+        tenancy = cancellable_call(identity.get_tenancy, config['tenancy'],
+                                   retry_strategy=build_retry_strategy()).data
 
         return config, signer, tenancy, 'config_file', config_profile
 
@@ -170,15 +177,16 @@ def authenticate_instance_principals(authentication_errors):
     """
 
     try:
-        print(yellow(f"\r => Trying Instance Principals authentication..."), end=' ' * 50 + '\r', flush=True)
+        status_line(' => Trying Instance Principals authentication...')
 
         # Initialize the signer using the instance principals token
         signer = oci.auth.signers.InstancePrincipalsSecurityTokenSigner(retry_strategy=custom_retry_strategy)
         config = {'region': signer.region, 'tenancy': signer.tenancy_id}
 
         # Validate the config by trying to get the tenancy_name
-        identity = oci.identity.IdentityClient(config=config, signer=signer)
-        tenancy = identity.get_tenancy(config['tenancy']).data
+        identity = oci.identity.IdentityClient(config=config, signer=signer, **client_options())
+        tenancy = cancellable_call(identity.get_tenancy, config['tenancy'],
+                                   retry_strategy=build_retry_strategy()).data
 
         return config, signer, tenancy, 'instance_principals', ''
 
@@ -189,31 +197,9 @@ def authenticate_instance_principals(authentication_errors):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check connectivity to OCI regions
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-def check_region_connectivity(region, config, signer, custom_retry_strategy):
-
-    """
-    Checks the connectivity to regions and returns the region if successful.
-    """
-
-    try:
-        config['region'] = region.region_name
-        print(yellow(f"\r => Checking connectivity to region {region.region_name}..."),end=' '*50+'\r', flush=True)
-
-        # Validate the connecivity by trying to get the tenancy_name
-        identity = oci.identity.IdentityClient(config=config, signer=signer)
-        identity.get_tenancy(config['tenancy'],retry_strategy=custom_retry_strategy).data
-        return region, True
-        
-    except Exception:
-        return region, False
-
-def validate_region_connectivity(regions, config, signer):
-
-    """
-    Validates the connectivity to multiple regions concurrently.
-    """
-
-    custom_retry_strategy = oci.retry.RetryStrategyBuilder(
+def region_connectivity_retry_strategy():
+    """Original regional probe policy; independent of authentication settings."""
+    return oci.retry.RetryStrategyBuilder(
         max_attempts_check=True,
         max_attempts=10,
         total_elapsed_time_check=True,
@@ -222,137 +208,254 @@ def validate_region_connectivity(regions, config, signer):
         retry_base_sleep_time_seconds=2,
     ).get_retry_strategy()
 
-    regions_validated = []
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        # Submit all region connectivity checks concurrently
-        futures = {executor.submit(check_region_connectivity, region, config, signer, custom_retry_strategy): region for region in regions}
+def check_region_connectivity(region, config, signer, custom_retry_strategy):
 
-        # Process results as they complete
-        for future in as_completed(futures):
-            region, success = future.result()
-            
-            if success:
-                regions_validated.append(region)
+    """
+    Check regional Identity access using the historical GetTenancy probe.
+    """
+
+    try:
+        region_config = dict(config)
+        region_config['region'] = region.region_name
+        # This probe deliberately tests Identity GetTenancy only. Compute/AD
+        # permissions are separate from the historical region-access criterion.
+        identity = oci.identity.IdentityClient(
+            config=region_config,
+            signer=signer
+        )
+
+        cancellable_call(identity.get_tenancy,
+            region_config['tenancy'],
+            retry_strategy=custom_retry_strategy
+        ).data
+
+        return region, True, "OK"
+        
+    except oci.exceptions.ServiceError as e:
+        error_message = f"{e.status} {e.code}: {e.message}".replace("\n", " ")
+        request_id = getattr(e, "request_id", None)
+        if request_id:
+            error_message += f" | opc-request-id: {request_id}"
+        return region, False, error_message
+    except (oci.exceptions.RequestException, oci.exceptions.ClientError, ValueError, TimeoutError) as e:
+        return region, False, str(e).replace("\n", " ")
+    except Exception as e:
+        return region, False, str(e).replace("\n", " ")
+
+def validate_region_connectivity(regions, config, signer, fatal=True):
+
+    """
+    Validates the connectivity to multiple regions concurrently.
+    """
+
+    region_results = {}
+
+    def check(region):
+        # Keep the original region-probe policy independent of authentication
+        # and capacity-call settings. A separate strategy belongs to each job.
+        return check_region_connectivity(region, config, signer, region_connectivity_retry_strategy())
+
+    with closing(region_tasks(
+            regions, check, progress='Checking connectivity to region')) as tasks:
+        for region, result, error in tasks:
+            if error is not None:
+                success, message = False, str(error)
             else:
-                #print(f"\r", end=' ' * 50, flush=True)
+                _, success, message = result
+            region_results[region.region_name] = (success, message)
+            if not success:
                 print_info(red, 'Region', 'error', region.region_name)
                 print_info(red, 'Region', 'status', region.status)
                 print_info(red, 'Region', 'ignored', 'check domain replication')
 
+    regions_validated = [
+        region for region in regions
+        if region_results.get(region.region_name, (False, None))[0]
+    ]
+
     if regions_validated:
         return regions_validated
     else:
+        region_errors = [
+            f"{region.region_name} - {region.region_key} - {region.status}: "
+            "Failed to connect"
+            for region in regions
+        ]
         print_error(
             "No available region found",
-            f"{region.region_name} - {region.region_key} - {region.status}",
+            *region_errors,
             "check domain replication"
             )
-        raise SystemExit(1)
+        if fatal:
+            raise SystemExit(1)
+        return []
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check compartment state
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 def check_compartment_state(identity_client, compartment_id):
-
-    """
-    Check if a compartment is ACTIVE
-    """
-
-    try:
-        # Retrieve compartment details from OCI using the provided compartment_id
-        compartment = identity_client.get_compartment(compartment_id).data
-
-        # Check if the compartment's lifecycle state is 'ACTIVE'
-        if compartment.lifecycle_state == 'ACTIVE':
-            # Print compartment information if it is active
-            print_info(green, 'Compartment', 'analyzed', compartment.name)
-            print_info(green, 'Compartment', 'state', compartment.lifecycle_state)
-            return
-        else:
-            # Print an error message if the compartment is not active and exit the program
-            print_error(
-                "Compartment:", 
-                compartment.name, 
-                "is in an unexpected state:", 
-                compartment.lifecycle_state
-            )
-            raise SystemExit(1)
-
-    except oci.exceptions.ServiceError as e:
-        # Catch any ServiceError exceptions raised by the OCI SDK
-        # Print a detailed error message and exit the program
-        print_error(
-            "Compartment_id error:", 
-            compartment_id, 
-            e.code, 
-            e.message
-        )
-        raise SystemExit(1)
+    """Check compartment state without deciding whether the caller must exit."""
+    compartment = identity_client.get_compartment(compartment_id).data
+    if compartment.lifecycle_state != 'ACTIVE':
+        raise ValueError(f'Compartment {compartment.name} is {compartment.lifecycle_state}')
+    print_info(green, 'Compartment', 'analyzed', compartment.name)
+    print_info(green, 'Compartment', 'state', compartment.lifecycle_state)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # get compartment name
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 def get_compartment_name(identity_client, compartment_id):
+    """Retrieve a name; request errors remain recoverable by the caller."""
+    return identity_client.get_compartment(compartment_id).data.name
 
-    """
-    retrieve compartment name from compartment ocid
-    """
-
-    try:
-        compartment_name = identity_client.get_compartment(compartment_id).data.name
-        return compartment_name
-
-    except oci.exceptions.ServiceError as e:
-        print_error("Compartment_id error:", compartment_id, e.code, e.message)
-        raise SystemExit(1)
-    
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set target compartment for capacity report query
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-def validate_compartment(identity_client, compartment_id):
+def inspect_compartment(identity_client, compartment_id, tenancy_id=None):
+    """Confirm Identity read access and an active child, or the current root."""
+    is_root = tenancy_id is not None and compartment_id == tenancy_id
+    function = identity_client.get_tenancy if is_root else identity_client.get_compartment
+    item = cancellable_call(function, compartment_id, retry_strategy=build_retry_strategy()).data
+    if item is None:
+        raise ValueError('OCI Identity returned no compartment information.')
+    if not is_root and getattr(item, 'lifecycle_state', None) != 'ACTIVE':
+        raise ValueError(f'Compartment {compartment_id} is not ACTIVE '
+                         f"(state: {getattr(item, 'lifecycle_state', None) or 'not returned'}).")
+    return item
+
+
+def validate_compartment(identity_client, compartment_id, tenancy_id=None):
 
     """
     Validate if the compartment is active.
     """
     
     try:
-        compartment = identity_client.get_compartment(compartment_id).data
-        if compartment.lifecycle_state == 'ACTIVE':
-            return compartment_id
-        else:
-            print(red(f"\nCompartment state error: {compartment.name} is {compartment.lifecycle_state}"))
-    except oci.exceptions.ServiceError as e:
-        print(red(f"\nCompartment error: {compartment_id} => {e.code} - {e.message}"))
+        inspect_compartment(identity_client, compartment_id, tenancy_id)
+        return compartment_id
+    except ValueError as error:
+        print(red(str(error)))
+    except Exception as error:
+        print_request_error(f'Cannot validate compartment {compartment_id}; '
+                            'it may not exist or you may not have access', error)
     return None
+
+
+def compartment_paths(identity_client, compartments, tenancy_id, debug=False):
+    """Resolve ancestor names once per listing, retaining partial paths on denial."""
+    cache = {item.id: item for item in compartments}
+    paths = {}
+    with temporary_status('Reading compartment paths...', quiet_redirect=True):
+        for compartment in compartments:
+            current = compartment.id
+            seen, parts = set(), []
+            while current:
+                if current in seen:
+                    parts.append(f'[ancestor cycle: {current}]')
+                    break
+                seen.add(current)
+                if current not in cache:
+                    try:
+                        function = identity_client.get_tenancy if current == tenancy_id else identity_client.get_compartment
+                        cache[current] = cancellable_call(function, current,
+                                                          retry_strategy=build_retry_strategy()).data
+                    except Exception as error:
+                        cache[current] = None
+                        if debug:
+                            print_request_error(f'Compartment path / {current}', error, debug=True)
+                item = cache[current]
+                if item is None:
+                    parts.append(f'[unavailable ancestor: {current}]')
+                    break
+                parts.append(getattr(item, 'name', None) or f'[name unavailable: {current}]')
+                if current == tenancy_id:
+                    break
+                current = getattr(item, 'compartment_id', None)
+                if not current:
+                    parts.append('[ancestor path unavailable]')
+            paths[compartment.id] = ' / '.join(reversed(parts))
+    return paths
+
+
+def resolve_compartment(identity_client, value, tenancy_id, *, interactive=True):
+    """Resolve an exact compartment name or validate an explicit OCID."""
+    value = value.strip()
+    if value.startswith('ocid1.'):
+        return validate_compartment(identity_client, value, tenancy_id)
+    if not value:
+        print(red('Enter a compartment name or OCID.'))
+        return None
+    try:
+        with temporary_status('Searching OCI compartments...', quiet_redirect=True):
+            matches = oci.pagination.list_call_get_all_results(
+                lambda *args, **kwargs: cancellable_call(identity_client.list_compartments, *args, **kwargs),
+                tenancy_id, name=value, compartment_id_in_subtree=True,
+                access_level='ACCESSIBLE', lifecycle_state='ACTIVE',
+                retry_strategy=build_retry_strategy()).data
+        matches = sorted({item.id: item for item in matches if item.name == value}.values(),
+                         key=lambda item: item.id)
+    except Exception as error:
+        print_request_error('Compartment name lookup failed; use an OCID instead', error)
+        return None
+    if not matches:
+        print(red(f'No accessible active compartment found with the exact name {value} (case sensitive).'))
+        return None
+    if len(matches) == 1:
+        selected = matches[0]
+    else:
+        paths = compartment_paths(identity_client, matches, tenancy_id)
+        output = PageBuffer()
+        output.write('Several compartments have this name. Select one:')
+        for number, item in enumerate(matches, 1):
+            write_wrapped(output, f'{number:02d}: {item.name} ({item.id})')
+            write_wrapped(output, f'Path: {paths[item.id]}', prefix='    ')
+        show_pages(output.lines)
+        if not interactive:
+            print(red('Use a compartment OCID to disambiguate this name.'))
+            return None
+        while True:
+            choice = read_input('Compartment number ([B]ack, [Q]uit): ', back=True)
+            if choice is None:
+                return None
+            try:
+                index = selection_indices(choice, len(matches), multiple=False)[0]
+            except ValueError:
+                print(red('Choose a compartment number from the list.'))
+                continue
+            selected = matches[index]
+            break
+    compartment_id = validate_compartment(identity_client, selected.id, tenancy_id)
+    if compartment_id:
+        print_info(green, 'Compartment', 'selected', f'{selected.name} ({compartment_id})')
+    return compartment_id
 
 
 def set_user_compartment(identity_client, args, tenancy_id):
 
     """
-    Determines and returns the user compartment based on their administrative rights and input.
-    Verifies the compartment provided by the user. If there is an error, 
-    prompts the user to specify whether they have Administrator rights at the tenancy level. 
-    Based on the user's response, the function either returns the tenancy ID, requests the user 
-    to input their compartment OCID, or exits the application.
+    Honor an explicit compartment before -su. Retry invalid explicit targets
+    without falling back to tenancy scope. Otherwise keep the admin question.
     """
 
     valid_inputs = {'Y', 'YES', 'N', 'NO', 'Q', 'QUIT'}
 
-    # If super user mode is enabled, return the tenancy ID directly.
+    # An explicit target takes precedence over the admin-prompt shortcut.
+    if args.compartment:
+        value = args.compartment
+        while True:
+            valid_compartment = resolve_compartment(identity_client, value, tenancy_id)
+            if valid_compartment:
+                return valid_compartment
+            value = read_input('\nEnter another compartment name or OCID, or [Q]uit: ')
+
     if args.su:
         return tenancy_id
 
-    # If a compartment is provided, validate it.
-    if args.compartment:
-        valid_compartment = validate_compartment(identity_client, args.compartment)
-        if valid_compartment:
-            return valid_compartment
-
     # Interactive input for determining the compartment
     while True:
-        user_input = input(yellow("Do you have Administrator rights at the tenancy level? [Y]es, [N]o, [Q]uit: ")).strip().upper()
+        user_input = read_input("Do you have Administrator rights at the tenancy level? [Y]es, [N]o, [Q]uit: ").upper()
 
         if user_input not in valid_inputs:
             print(red("\nInvalid input. Please enter 'Y', 'Yes', 'N', 'No', 'Q', or 'Quit'\n"))
@@ -364,12 +467,12 @@ def set_user_compartment(identity_client, args, tenancy_id):
 
         if user_input in {'N', 'NO'}:
             while True:
-                user_compartment = input(yellow("\nEnter a compartment OCID to which you have access or [Q]uit: ")).strip().lower()
+                user_compartment = read_input("\nEnter a compartment name or OCID to which you have access or [Q]uit: ")
 
                 if user_compartment in {'q', 'quit'}:
                     raise SystemExit("\nQuitting the program as per user request.\n")
 
-                valid_compartment = validate_compartment(identity_client, user_compartment)
+                valid_compartment = resolve_compartment(identity_client, user_compartment, tenancy_id)
                 if valid_compartment:
                     print()
                     return valid_compartment
@@ -387,8 +490,8 @@ def get_home_region(identity_client, tenancy_id):
     """
 
     try:
-        print(yellow(f"\r => Fectching home region..."),end=' '*50+'\r', flush=True)
-        subscribed_regions = identity_client.list_region_subscriptions(tenancy_id).data
+        with temporary_status(' => Fetching home region...', quiet_redirect=True):
+            subscribed_regions = identity_client.list_region_subscriptions(tenancy_id).data
 
         # Return home region
         home_region = next((region for region in subscribed_regions if region.is_home_region), None)            
@@ -401,6 +504,58 @@ def get_home_region(identity_client, tenancy_id):
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Get all subscribed region in the tenancy
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
+def select_region(identity_client, tenancy_id, current_region, config, signer, debug=False, single_only=False):
+    """Choose one or more ready subscriptions, checking connectivity first."""
+    try:
+        regions = sorted(
+            (region for region in identity_client.list_region_subscriptions(tenancy_id).data
+             if region.status == 'READY'),
+            key=lambda region: region.region_name
+        )
+    except Exception as e:
+        print_request_error("Unable to list subscribed regions", e, debug=debug)
+        return None
+
+    if not regions:
+        print_error("No ready subscribed region found.")
+        return None
+
+    clear()
+    print(yellow("\nSubscribed regions:"))
+    for index, region in enumerate(regions, start=1):
+        current = " (current)" if region.region_name == current_region.region_name else ""
+        print(plain_text(f"{index}: {region.region_name}{current}"))
+
+    while True:
+        prompt = ("\nSelect one region number, [B]ack, [H]ome or [Q]uit: " if single_only else
+                  "\nSelect region number(s), e.g. 1,3,4, [B]ack, [H]ome or [Q]uit: ")
+        choice = read_choice(prompt)
+        if choice is None:
+            return None
+        try:
+            indices = selection_indices(choice, len(regions), multiple=not single_only)
+        except ValueError:
+            print(red("Invalid input. Enter one region number." if single_only else
+                      "Invalid input. Enter region numbers separated by commas."))
+            continue
+
+        selected = []
+        for index in indices:
+            region = regions[index]
+            _, success, message = check_region_connectivity(region, config, signer,
+                                                            region_connectivity_retry_strategy())
+            if not success:
+                print(red(f"Cannot connect to region {region.region_name}: Failed to connect"))
+                if debug:
+                    print(plain_text(message))
+                continue
+            print_info(green, 'Region', 'selected', region.region_name)
+            selected.append(region)
+        if not selected:
+            continue
+        return selected[0] if len(selected) == 1 else selected
+
+
 def get_region_subscription_list(identity_client, tenancy_id, target_region):
 
     """
@@ -408,8 +563,16 @@ def get_region_subscription_list(identity_client, tenancy_id, target_region):
     """
 
     try:
-        print(yellow(f"\r => Loading regions..."),end=' '*50+'\r', flush=True)
-        subscribed_regions = identity_client.list_region_subscriptions(tenancy_id).data
+        with temporary_status(' => Loading regions...', quiet_redirect=True):
+            subscribed_regions = identity_client.list_region_subscriptions(tenancy_id).data
+
+        if ',' in target_region:
+            names = list(dict.fromkeys(part.strip().lower() for part in target_region.split(',')))
+            region_map = {region.region_name.lower(): region for region in subscribed_regions}
+            if any(not name or name == 'all_regions' or name not in region_map for name in names):
+                print_error('Region error:', 'Use comma-separated subscribed region names; all_regions must be used alone.')
+                raise SystemExit(1)
+            return [region_map[name] for name in names]
 
         # Return home region only if no target region is specified
         if not target_region:
@@ -450,57 +613,18 @@ def get_region_subscription_list(identity_client, tenancy_id, target_region):
 # Get Availablity Domains in the region
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 def get_availability_domains(identity_client, tenancy_id):
+    """Retrieve AD names; let the report handle recoverable request failures."""
+    availability_domains = oci.pagination.list_call_get_all_results(
+        identity_client.list_availability_domains, tenancy_id,
+        retry_strategy=build_retry_strategy()
+    ).data
+    return [ad.name for ad in availability_domains]
 
-    """
-    Fetches the list of availability domains for a given region.
-    """
-    
-    try:
-        # Initialize an empty list to store availability domain names
-        oci_ads = []
 
-        # Use OCI pagination to retrieve all availability domains for the specified compartment
-        availability_domains = oci.pagination.list_call_get_all_results(
-            identity_client.list_availability_domains,
-            tenancy_id
-        ).data
-
-        # Extract the 'name' attribute of each availability domain and add it to the list
-        for ad in availability_domains:
-            oci_ads.append(ad.name)
-
-    except oci.exceptions.ServiceError as e:
-        print_error("Error in get_availability_domains:", e)
-        raise SystemExit(1) 
-
-    return oci_ads
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Get Fault Domains in an Availability Domain
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
 def get_fault_domains(identity_client, tenancy_id, availability_domain):
-
-    """
-    Fetches the list of fault domains for a given availability domain.
-    """
-
-    try:
-        # Initialize an empty list to store fault domain names
-        oci_fds=[]
-
-        # Use OCI pagination to retrieve all fault domains for the specified availability domain
-        fault_domains = oci.pagination.list_call_get_all_results(
-            identity_client.list_fault_domains,
-            tenancy_id,
-            availability_domain
-            ).data
-
-        # Extract the 'name' attribute of each fault domain and add it to the list
-        for fd in fault_domains:
-            oci_fds.append(fd.name)
-    
-    except oci.exceptions.ServiceError as e:
-        print_error("Error in get_fault_domains:", e)
-        raise SystemExit(1)
-
-    return oci_fds
+    """Retrieve FD names without exiting the interactive session on failure."""
+    fault_domains = oci.pagination.list_call_get_all_results(
+        identity_client.list_fault_domains, tenancy_id, availability_domain,
+        retry_strategy=build_retry_strategy()
+    ).data
+    return [fd.name for fd in fault_domains]

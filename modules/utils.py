@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import os 
-from os import name
+from modules.terminal import colors_enabled, plain_text, terminal_output
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # def colors
@@ -14,6 +14,9 @@ class Color:
         self.code = code
 
     def __call__(self, text):
+        text = plain_text(text)
+        if not colors_enabled():
+            return text
         try:
             return f'{self.ESCAPE_SEQ_START.format(self.code)}{text}{self.ESCAPE_SEQ_END}'
         except Exception:
@@ -42,14 +45,8 @@ black_b = Color(40)
 # Clear shell screen
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 def clear():
-
-    try:
-        if name == 'nt':  # Windows
-            os.system('cls')
-        else:  # macOS, Linux, and other UNIX-like systems
-            os.system('clear')
-    except Exception:
-        pass
+    if terminal_output():
+        print('\033[2J\033[H', end='', flush=True)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Expand local path
