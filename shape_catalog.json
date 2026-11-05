@@ -1,5 +1,5 @@
 {
-  "catalog_version": "2026-11-02T08:29:33.074990Z",
+  "catalog_version": "2026-11-05T22:02:59.252777Z",
   "shapes": {
     "BM.DenseIO.A4.Ax.72": {
       "baseline_ocpu_utilizations": null,
@@ -556,6 +556,7 @@
         "measured_boot_options": null,
         "trusted_platform_module_options": {
           "allowed_values": [
+            true,
             false
           ],
           "is_default_enabled": false
