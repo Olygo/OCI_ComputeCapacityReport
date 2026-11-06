@@ -1,2 +1,4 @@
 .DS_Store
 *.pyc
+OCI_ShapeCatalogGenerator.py
+SHAPE_CATALOG_GENERATOR.md
